@@ -1,14 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@700&display=swap');
 
 :root {
     font-size: 16px;
-    $workSans: 'Work Sans', sans-serif;
 }
 
 header {
     width: 100%;
     display: block;
     text-align: center;
-    font-family:'Work Sans';
-    color: #a685e2;    ;
+    padding: 20px;
+    h1 {
+        font-family: 'Josefin Sans', sans-serif;
+        color:black;
+        font-size: 40px;
+        font-style: bold;
+    }
 }
