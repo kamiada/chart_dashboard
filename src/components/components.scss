@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
+
+:root {
+    font-size: 16px;
+    $workSans: 'Work Sans', sans-serif;
+}
+
+header {
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-family:'Work Sans';
+    color: #a685e2;    ;
+}
