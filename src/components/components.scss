@@ -6,6 +6,8 @@
     --candyPink: #FEADB9;
     --dustPink: #F0C5D5;
     --midPurple: #AB6393;
+    --purple: #a685e2;
+    --veryPurple: #9C8ADE;
 }
 
 header {
@@ -13,6 +15,7 @@ header {
     display: block;
     text-align: center;
     padding: 20px;
+    background-color: var(--darkPinkPastel);
     h1 {
         font-family: 'Josefin Sans', sans-serif;
         color:black;
