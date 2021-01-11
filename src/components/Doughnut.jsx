@@ -7,22 +7,25 @@ class Doughnut extends Component {
     
     componentDidMount() {
         const myChartRef = this.chartRef.current.getContext("2d");
-        
         new Chart(myChartRef, {
-            type: "line",
+            type: 'doughnut',
             data: {
-                //Bring in data
-                labels: ["Jan", "Feb", "March"],
-                datasets: [
-                    {
-                        label: "Sales",
-                        data: [86, 67, 91],
-                    }
-                ]
+              labels: ["test", "water", "food", "burger"],
+              datasets: [{
+                  backgroundColor: '#9C8ADE',
+                  borderWidth: 0,
+                  data: [1, 2, 4, 6],
+              }]
             },
-            options: {
-                //Customize chart options
-            }
+            options: { 
+              legend: {
+                display: false,
+              },
+              cutoutPercentage: 80,
+              aspectRatio: 1,
+              maintainAspectRatio: true,
+              responsive: false,
+        }
         });
     }
     render() {
