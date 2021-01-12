@@ -12,14 +12,14 @@ class Doughnut extends Component {
             data: {
               labels: ["test", "water", "food", "burger"],
               datasets: [{
-                  backgroundColor: '#9C8ADE',
+                  backgroundColor: ['#9C8ADE', '#aa1cc7', '#31e855', '#2f83de'],
                   borderWidth: 0,
                   data: [1, 2, 4, 6],
               }]
             },
             options: { 
               legend: {
-                display: false,
+                display: true,
               },
               cutoutPercentage: 80,
               aspectRatio: 1,
