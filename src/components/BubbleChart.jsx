@@ -44,7 +44,7 @@ class BubbleChart extends Component {
     }
     render(){
         return(
-            <div className="bubble_canvas">
+            <div className="item">
                 <canvas id="BubbleChart" ref={this.chartRef} />
             </div>
         )

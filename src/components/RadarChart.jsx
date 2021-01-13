@@ -29,7 +29,7 @@ class RadarChart extends Component {
     }
     render(){
         return(
-            <div className="radar_canvas">
+            <div className="item">
                 <canvas id='RadarChart' ref={this.chartRef} />
             </div>
         )

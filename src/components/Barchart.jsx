@@ -37,7 +37,7 @@ class Barchart extends Component {
 
   render() {
     return (
-      <div className="bar_canvas">
+      <div className="item">
         <canvas id="myChart2" ref={this.chartRef}></canvas>
       </div>
     );
