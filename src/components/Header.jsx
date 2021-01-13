@@ -5,7 +5,7 @@ class Header extends Component {
     render() {
         return (
             <header>
-               <h1>Dashboard</h1> 
+               <h1>dashboard.</h1> 
             </header>
         )
     }
