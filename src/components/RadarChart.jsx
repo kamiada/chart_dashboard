@@ -4,9 +4,32 @@ import "./components.scss";
 
 class RadarChart extends Component {
     chartRef = React.createRef();
+    componentDidMount() {
+        const myChartRef = this.chartRef.current.getContext("2d");
+        new Chart(myChartRef, {
+            type: "radar",
+            data: {
+                labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
+                datasets: [{
+                    data: [20, 10, 4, 2]
+                }]
+            },
+            options: {
+                scale: {
+                    angleLines: {
+                        display: false
+                    },
+                    ticks: {
+                        suggestedMin: 50,
+                        suggestedMax: 100
+                    }
+                }
+            }
+        });
+    }
     render(){
         return(
-            <div>
+            <div className="radar_canvas">
                 <canvas id='RadarChart' ref={this.chartRef} />
             </div>
         )
