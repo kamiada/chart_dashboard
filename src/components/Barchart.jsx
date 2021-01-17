@@ -17,6 +17,7 @@ class Barchart extends Component {
             barThickness: 6,
             maxBarThickness: 8,
             minBarLength: 2,
+            label: 'test data',
             data: [2, 5, 6, 19, 5],
           },
         ],

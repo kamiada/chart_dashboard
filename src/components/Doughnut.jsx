@@ -30,7 +30,7 @@ class Doughnut extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="item">
                 <canvas
                     id="myChart"
                     ref={this.chartRef}

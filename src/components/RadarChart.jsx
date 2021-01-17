@@ -11,6 +11,7 @@ class RadarChart extends Component {
             data: {
                 labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
                 datasets: [{
+                    label: 'test data',
                     data: [20, 10, 4, 2]
                 }]
             },
