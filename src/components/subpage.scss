@@ -1,0 +1,29 @@
+.miniPage {
+  display: none;
+  &--active{
+    display: flex;
+    justify-content: center;
+    z-index: 9;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 60%;
+    left: 50%;
+    bottom: 50%;
+    background-color: whitesmoke;
+    width: 500px;
+    height: 400px;
+    text-align: center;
+  }
+}
+.smallTitle {
+  float: right;
+  h2 {
+    font-family: "Josefin Sans", sans-serif;
+    margin: 0 0 10px 0;
+    font-size: 27px;
+  }
+}
+.smallTitle:hover {
+  color: white;
+  cursor: pointer;
+}
