@@ -6,19 +6,44 @@ import RadarChart from "./components/RadarChart";
 import BubbleChart from "./components/BubbleChart";
 import Subpage from "./components/Subpage";
 import "./components/components.scss";
+import axios from 'axios';
 
-const API = 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=england&structure=%7B%22name%22:%22areaName%22%7D';
 
-function fetchData(api) {
-  return fetch(api)
-  .then(message =>
-    console.log(message)
-  )
-  .catch(error => console.error(error));
-}
+
+const endpoint = (
+    'https://api.coronavirus.data.gov.uk/v1/data?' +
+    'filters=areaType=nation;areaName=england&' +
+    'structure={"date":"date","newCases":"newCasesByPublishDate"}'
+);
+
+
+const getData = async ( url ) => {
+
+    const { data, status, statusText } = await axios.get(url, { timeout: 10000 });
+
+    if ( status >= 400 )
+        throw new Error(statusText);
+
+    return data
+
+};  // getData
+
+
+const main = async () => {
+
+    const result = await getData(endpoint);
+
+    console.log(result);
+
+};  // main
+
+
+main().catch(err => {
+    console.error(err);
+    process.exitCode = 1;
+});
 
 function App() {
-  fetchData(API);
   return (
     <div>
       <Header />
