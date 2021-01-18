@@ -10,7 +10,7 @@ class Barchart extends Component {
     new Chart(myChartRef, {
       type: "bar",
       data: {
-        labels: ["Italian", "French", "Polish", "Suahili"],
+        labels: this.props.labels,
         datasets: [
           {
             barPercentage: 0.5,
