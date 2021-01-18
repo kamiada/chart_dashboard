@@ -40,9 +40,10 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <Subpage />
         <div className="container">
           {!this.state.data ? <div>Loading data...</div> : 
-         <Barchart label={this.state.data} data={[this.state.deathPerDay, this.state.newCases]} />
+         <Barchart label={this.state.data} labels={['cumCasesByPublishDate','cumDeathsByDeathDate']} data={[this.state.deathPerDay, this.state.newCases]} />
           }
         </div>
       </div>
