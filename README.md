@@ -14,3 +14,7 @@ https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react
 For styling:
 https://masonry.desandro.com/
 https://tobiasahlin.com/blog/common-flexbox-patterns/ - an absolute blessing 
+
+Possibilities for working with this data:
+- difference between England and Scotland in space of last few months, with focus on number of deaths and cases
+- in which months there was more cases?
