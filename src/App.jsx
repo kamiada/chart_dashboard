@@ -1,9 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import Header from "./components/Header";
-import Doughnut from "./components/Doughnut";
 import Barchart from "./components/Barchart";
-import RadarChart from "./components/RadarChart";
-import BubbleChart from "./components/BubbleChart";
 import Subpage from "./components/Subpage";
 import "./components/components.scss";
 import axios from 'axios';
@@ -21,20 +18,15 @@ const getData = async ( url ) => {
 class App extends Component {
   state = {
     loading: true,
-    data: '',
-    deathPerDay: [],
-    newCases: [],
+    data: []
   }
   async componentDidMount(){
-      const response = await getData(endpoint);
-      const APIdata = await response;
-      console.log(APIdata.data[0]);
+      const response = await getData(EUendpoint);
+      let APIdata = await response;
       this.setState({
-        data: APIdata.data[0].areaName,
-        deathPerDay: APIdata.data[0].cumDeathsByDeathDate,
-        newCases: APIdata.data[0].newCasesByPublishDate,
+        data: APIdata,
       })
-      console.log(this.state.newCases);
+      console.log(this.state.data);
   }
   render(){
     return (
@@ -43,7 +35,7 @@ class App extends Component {
         <Subpage />
         <div className="container">
           {!this.state.data ? <div>Loading data...</div> : 
-         <Barchart label={this.state.data} labels={['cumCasesByPublishDate','cumDeathsByDeathDate']} data={[this.state.deathPerDay, this.state.newCases]} />
+         <Barchart label='Number of coronavirus cases' labels={[this.state.data.areaCode,'cumDeathsByDeathDate']} data={[this.state.data.deathPerDay, this.state.data.newCases]} />
           }
         </div>
       </div>

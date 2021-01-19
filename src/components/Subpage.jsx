@@ -23,7 +23,7 @@ class Subpage extends Component {
         </button>
         <Fragment>
         <div className={this.state.itsActive ? 'miniPage--active': 'miniPage'} >
-            <text>The purpose of this page is to present in graph data regarding COVID-19 in U.K, specifically Scotland</text>
+            <p>The purpose of this page is to present in graph data regarding COVID-19 in U.K, specifically Scotland</p>
         </div>
       </Fragment>
       </div>

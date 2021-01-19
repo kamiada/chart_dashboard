@@ -1,0 +1,13 @@
+{
+    "date": "date",
+    "name": "areaName",
+    "code": "areaCode",
+    "cases": {
+        "daily": "newCasesByPublishDate",
+        "cumulative": "cumCasesByPublishDate"
+    },
+    "deaths": {
+        "daily": "newDeathsByDeathDate",
+        "cumulative": "cumDeathsByDeathDate"
+    }
+}
