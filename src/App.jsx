@@ -9,7 +9,7 @@ import "./components/components.scss";
 import axios from 'axios';
 
 const endpoint = (
-  'https://api.coronavirus.data.gov.uk/v1/data?/v1/data?filters=areaType=nation;areaName=scotland&structure={"date":"date","areaName":"areaName","areaCode":"areaCode","newCasesByPublishDate":"newCasesByPublishDate","cumCasesByPublishDate":"cumCasesByPublishDate","newDeathsByDeathDate":"newDeathsByDeathDate","cumDeathsByDeathDate":"cumDeathsByDeathDate"}'
+  'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=scotland&structure={"date":"date","name":"areaName","code":"areaCode","cases":{"daily":"newCasesByPublishDate","cumulative":"cumCasesByPublishDate"},"deaths":{"daily":"newDeathsByDeathDate","cumulative":"cumDeathsByDeathDate"}}'
 );
 const getData = async ( url ) => {
     const { data, status, statusText } = await axios.get(url, { timeout: 10000 });
