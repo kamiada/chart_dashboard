@@ -12,11 +12,15 @@
     background-color: whitesmoke;
     width: 500px;
     height: 400px;
-    text-align: center;
+    text-align: justify;
+    p {
+      margin: 10px;
+    }
   }
 }
 .smallTitle {
   float: right;
+  background-color:  #feadb9;
   h2 {
     font-family: "Josefin Sans", sans-serif;
     margin: 5px 0 10px 0;
@@ -25,5 +29,14 @@
 }
 .smallTitle:hover {
   color: white;
+  cursor: pointer;
+}
+.image {
+  width: 50px;
+}
+.btnClose {
+  background-color: whitesmoke;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
 }

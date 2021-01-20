@@ -23,3 +23,5 @@ Possibilities for working with this data:
 Data taken from lovely places like: 
 - https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
 - 
+Icons:
+- Cross by Aybige from the Noun Project

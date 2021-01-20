@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./subpage.scss";
+import Cross from "./cross.svg";
 
 class Subpage extends Component {
     constructor(props) {
@@ -8,12 +9,17 @@ class Subpage extends Component {
             itsActive: false,
         }
         this.derenderSubpagelta = this.renderSubpage.bind(this);
+        this.closeSubpage = this.closeSubpage.bind(this);
     }
-
     renderSubpage = () => {
         this.setState({
             itsActive: true,
         });
+    }
+    closeSubpage = () => {
+      this.setState({
+        itsActive: false,
+      });
     }
   render() {
     return (
@@ -24,6 +30,9 @@ class Subpage extends Component {
         <Fragment>
         <div className={this.state.itsActive ? 'miniPage--active': 'miniPage'} >
             <p>The purpose of this page is to present in graph data regarding COVID-19 in U.K, specifically Scotland</p>
+            <button onClick={this.closeSubpage} className="btnClose">
+            <img className="image" src={Cross} alt="Cross by Aybige from the Noun Project" />
+            </button>
         </div>
       </Fragment>
       </div>
