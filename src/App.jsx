@@ -4,6 +4,7 @@ import Barchart from "./components/Barchart";
 import Subpage from "./components/Subpage";
 import "./components/components.scss";
 import axios from "axios";
+import euStaticData from './EUcovidData.json';
 
 const endpoint =
   'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=scotland&structure={"date":"date","name":"areaName","code":"areaCode","cases":{"daily":"newCasesByPublishDate","cumulative":"cumCasesByPublishDate"},"deaths":{"daily":"newDeathsByDeathDate","cumulative":"cumDeathsByDeathDate"}}';
@@ -15,6 +16,7 @@ const getData = async (url) => {
 class App extends Component {
   state = {
     data: [],
+    chosenFilter: APIdata,
   };
   async componentDidMount() {
     const response = await getData(endpoint);
