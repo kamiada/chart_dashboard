@@ -32,7 +32,7 @@ class App extends Component {
       <div>
         <Header />
         <Subpage />
-        <Filter filter= {this.state.chosenFilter + '. '} />
+        <Filter options= {this.state.chosenFilter + '. '} value={this.state.chosenFilter}/>
         <div className="container">
           {!this.state.data ? (
             <div>Loading data...</div>
