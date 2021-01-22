@@ -5,6 +5,7 @@ import Subpage from "./components/Subpage";
 import "./components/components.scss";
 import axios from "axios";
 import euStaticData from './EUcovidData.json';
+import Filter from './components/Filter';
 
 const endpoint =
   'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=scotland&structure={"date":"date","name":"areaName","code":"areaCode","cases":{"daily":"newCasesByPublishDate","cumulative":"cumCasesByPublishDate"},"deaths":{"daily":"newDeathsByDeathDate","cumulative":"cumDeathsByDeathDate"}}';
@@ -16,7 +17,7 @@ const getData = async (url) => {
 class App extends Component {
   state = {
     data: [],
-    chosenFilter: APIdata,
+    chosenFilter: 'APIdata',
   };
   async componentDidMount() {
     const response = await getData(endpoint);
@@ -31,6 +32,7 @@ class App extends Component {
       <div>
         <Header />
         <Subpage />
+        <Filter filter= {this.state.chosenFilter + '. '} />
         <div className="container">
           {!this.state.data ? (
             <div>Loading data...</div>

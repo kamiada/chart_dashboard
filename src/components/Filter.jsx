@@ -6,7 +6,7 @@ import './components.scss';
 class Filter extends Component {
     render(){
         return (
-            <div>
+            <div  className="smallTitle">
                 <h2>{this.props.filter}</h2>
 
             </div>
