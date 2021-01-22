@@ -3,12 +3,12 @@
 
 import React, { Component } from 'react';
 import './components.scss';
-
 class Filter extends Component {
     render(){
         return (
             <div>
                 <h2>{this.props.filter}</h2>
+
             </div>
         )
     }
