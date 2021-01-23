@@ -19,38 +19,22 @@ class App extends Component {
       data: array
     })
   };
+  filterPerCountry(array) {
+    let initCountriesList = [];
+    array.forEach(item => {
+      if(!initCountriesList.includes(item.countriesAndTerritories)) {
+        initCountriesList.push(item.countriesAndTerritories);
+      }
+    })
+  }
+  getNumbOfDeathsPerMonth(){
+
+  }
+  getNumbOfCasesPerMonth(){
+    
+  }
   componentDidMount(){
-    var text = {
-      "records":[
-         {
-            "dateRep":"11/01/2021",
-            "year_week":"2021-01",
-            "cases_weekly":675,
-            "deaths_weekly":71,
-            "countriesAndTerritories":"Afghanistan",
-            "geoId":"AF",
-            "countryterritoryCode":"AFG",
-            "popData2019":38041757,
-            "continentExp":"Asia",
-            "notification_rate_per_100000_population_14-days":"4.15"
-         },
-         {
-            "dateRep":"04/01/2021",
-            "year_week":"2020-53",
-            "cases_weekly":902,
-            "deaths_weekly":60,
-            "countriesAndTerritories":"Afghanistan",
-            "geoId":"AF",
-            "countryterritoryCode":"AFG",
-            "popData2019":38041757,
-            "continentExp":"Asia",
-            "notification_rate_per_100000_population_14-days":"7.61"
-         }
-      ]
-   };
-    const staticData = JSON.parse(text);
-    this.loadStaticData(staticData);
-    console.log(staticData);
+    this.filterPerCountry(euStaticData.records);
   }
 
   render() {
