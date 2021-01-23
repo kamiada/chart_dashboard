@@ -3,41 +3,68 @@ import Header from "./components/Header";
 import Barchart from "./components/Barchart";
 import Subpage from "./components/Subpage";
 import "./components/components.scss";
-import axios from "axios";
-import euStaticData from './EUcovidData.json';
-import Filter from './components/Filter';
-
-const endpoint =
-  'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=scotland&structure={"date":"date","name":"areaName","code":"areaCode","cases":{"daily":"newCasesByPublishDate","cumulative":"cumCasesByPublishDate"},"deaths":{"daily":"newDeathsByDeathDate","cumulative":"cumDeathsByDeathDate"}}';
-const getData = async (url) => {
-  const { data, status, statusText } = await axios.get(url, { timeout: 10000 });
-  if (status >= 400) throw new Error(statusText);
-  return data;
-};
+import euStaticData from "./EUcovidData.json";
+import Filter from "./components/Filter";
 class App extends Component {
-  state = {
-    data: [],
-    chosenFilter: 'APIdata',
-  };
-  async componentDidMount() {
-    const response = await getData(endpoint);
-    let APIdata = await response.data;
-    this.setState({
-      data: APIdata,
-    });
-    console.log(this.state.data[0].name);
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: [],
+      chosenFilter: "APIdata",
+    };
+    this.loadStaticData = this.loadStaticData.bind(this);
   }
+  loadStaticData(array) {
+    this.setState({
+      data: array
+    })
+  };
+  componentDidMount(){
+    var text = {
+      "records":[
+         {
+            "dateRep":"11/01/2021",
+            "year_week":"2021-01",
+            "cases_weekly":675,
+            "deaths_weekly":71,
+            "countriesAndTerritories":"Afghanistan",
+            "geoId":"AF",
+            "countryterritoryCode":"AFG",
+            "popData2019":38041757,
+            "continentExp":"Asia",
+            "notification_rate_per_100000_population_14-days":"4.15"
+         },
+         {
+            "dateRep":"04/01/2021",
+            "year_week":"2020-53",
+            "cases_weekly":902,
+            "deaths_weekly":60,
+            "countriesAndTerritories":"Afghanistan",
+            "geoId":"AF",
+            "countryterritoryCode":"AFG",
+            "popData2019":38041757,
+            "continentExp":"Asia",
+            "notification_rate_per_100000_population_14-days":"7.61"
+         }
+      ]
+   };
+    const staticData = JSON.parse(text);
+    this.loadStaticData(staticData);
+    console.log(staticData);
+  }
+
   render() {
     return (
       <div>
         <Header />
         <Subpage />
-        <Filter options= {this.state.chosenFilter + '. '} value={this.state.chosenFilter}/>
         <div className="container">
-          {!this.state.data ? (
-            <div>Loading data...</div>
+          {this.state.data && this.state.data.length > 0 ? (
+            <div>
+              <Barchart label="Number of casess" data={this.state.data.cases_weekly} />
+            </div>
           ) : (
-            <div>tss</div>
+            <div>Loading data...</div>
           )}
         </div>
       </div>

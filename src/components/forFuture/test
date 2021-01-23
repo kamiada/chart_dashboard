@@ -1,0 +1,17 @@
+import axios from "axios";
+const endpoint =
+  'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation;areaName=scotland&structure={"date":"date","name":"areaName","code":"areaCode","cases":{"daily":"newCasesByPublishDate","cumulative":"cumCasesByPublishDate"},"deaths":{"daily":"newDeathsByDeathDate","cumulative":"cumDeathsByDeathDate"}}';
+const getData = async (url) => {
+  const { data, status, statusText } = await axios.get(url, { timeout: 10000 });
+  if (status >= 400) throw new Error(statusText);
+  return data;
+};
+
+async componentDidMount() {
+    const response = await getData(endpoint);
+    let APIdata = await response.data;
+    this.setState({
+      data: APIdata,
+    });
+    console.log(this.state.data[0].name);
+  }

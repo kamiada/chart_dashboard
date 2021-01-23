@@ -1,7 +1,7 @@
 //takes in two props and displays them, in App props are supplied to filter, state checks in App picks which one
 // was picked by the user
 
-import React, { Component } from "react";
+import React from "react";
 import "./components.scss";
 import Dropdown from "react-dropdown";
 
