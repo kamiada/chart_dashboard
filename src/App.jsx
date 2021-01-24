@@ -5,8 +5,6 @@ import Subpage from "./components/Subpage";
 import "./components/components.scss";
 import euStaticData from "./EUcovidData.json";
 import Dropdown from "react-dropdown";
-
-const options = ["one", "two", "three"];
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +28,22 @@ class App extends Component {
     });
     return initCountriesList;
   };
-  getNumbOfDeathsPerMonth() {}
-  getNumbOfCasesPerMonth() {}
+  getNumbOfDeathsPerMonth = (filter_where, array) => {
+    let results = [];
+    array.forEach((item) => {
+      if (item.countriesAndTerritories === filter_where) {
+        results.push(item.deaths_weekly);
+      }
+    });
+    return results;
+  };
+  getNumbOfCasesPerMonth = () => {};
+
+  findData = () => {};
+
   componentDidMount() {
     this.filterPerCountry(euStaticData.records);
+    this.getNumbOfDeathsPerMonth("Poland", euStaticData.records);
   }
 
   render() {
@@ -42,9 +52,10 @@ class App extends Component {
         <Header />
         <Subpage />
         <Dropdown
+          className="dropdown"
           options={this.filterPerCountry(euStaticData.records)}
           onChange={console.log("clicked")}
-          value="Select countries from the list"
+          value="countries."
           placeholder="Select an option"
         />
         <div className="container">
