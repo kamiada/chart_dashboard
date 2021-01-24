@@ -20,13 +20,13 @@ class App extends Component {
     });
   };
   filterPerCountry = (array) => {
-    let initCountriesList = [];
+    let results = [];
     array.forEach((item) => {
-      if (!initCountriesList.includes(item.countriesAndTerritories)) {
-        initCountriesList.push(item.countriesAndTerritories);
+      if (!results.includes(item.countriesAndTerritories)) {
+        results.push(item.countriesAndTerritories);
       }
     });
-    return initCountriesList;
+    return results;
   };
   getNumbOfDeathsPerMonth = (filter_where, array) => {
     let results = [];
@@ -39,7 +39,10 @@ class App extends Component {
   };
   getNumbOfCasesPerMonth = () => {};
 
-  findData = () => {};
+  addFilter = (item1) => {
+    //when user picks filter, adds it here to the list, list after button apply is clicked runs other functions and sends array of results to charts
+    return console.log("clicked" + item1);
+  };
 
   componentDidMount() {
     this.filterPerCountry(euStaticData.records);
@@ -54,9 +57,9 @@ class App extends Component {
         <Dropdown
           className="dropdown"
           options={this.filterPerCountry(euStaticData.records)}
-          onChange={console.log("clicked")}
           value="countries."
           placeholder="Select an option"
+          onChange={this.addFilter(this.value)}
         />
         <div className="container">
           {this.state.data && this.state.data.length > 0 ? (
