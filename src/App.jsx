@@ -9,9 +9,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      chosenFilter: "APIdata",
-      selectedOption: null,
+      selectedFilters: [],
+      selectedCountries: null,
+      selecteMonth: null,
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -38,22 +38,43 @@ class App extends Component {
     });
     return results;
   };
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption }, () =>
-      console.log(`Option selected:`, this.state.selectedOption)
+  handleChange = (selectedCountries) => {
+    this.setState({ selectedCountries }, () =>
+      console.log(`Option selected:`, this.state.selectedCountries)
     );
   };
 
   render() {
-    const { selectedOption } = this.state;
+    const { selectedCountries, selectedMonth } = this.state;
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     return (
       <div>
         <Header />
         <Subpage />
         <Dropdown
           className="dropdown"
+          options={months}
+          value={selectedMonth}
+          placeholder="months."
+          onChange={console.log(selectedMonth)}
+        />
+        <Dropdown
+          className="dropdown"
           options={this.filterPerCountry(euStaticData.records)}
-          value={selectedOption}
+          value={selectedCountries}
           placeholder="countries."
           onChange={this.handleChange}
         />

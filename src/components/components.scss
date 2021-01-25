@@ -16,7 +16,7 @@ button {
   text-transform: none;
   text-align: center;
   border: none;
-  outline:none;
+  outline: none;
 }
 
 body {
@@ -42,14 +42,15 @@ header {
   justify-content: space-between;
   z-index: 0;
   position: absolute;
-  }
+}
 .item {
   flex: 0 32%;
   width: 500px;
-  margin-bottom: 2%; 
+  margin-bottom: 2%;
 }
 .dropdown {
   font-family: "Josefin Sans", sans-serif;
-    margin: 5px 0 10px 0;
-    font-size: 27px;
+  margin: 5px 0 10px 0;
+  font-size: 27px;
+  display: inline-block;
 }
