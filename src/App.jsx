@@ -11,8 +11,9 @@ class App extends Component {
     this.state = {
       data: [],
       chosenFilter: "APIdata",
+      selectedOption: null,
     };
-    this.loadStaticData = this.loadStaticData.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   loadStaticData = (array) => {
     this.setState({
@@ -37,19 +38,14 @@ class App extends Component {
     });
     return results;
   };
-  getNumbOfCasesPerMonth = () => {};
-
-  addFilter = (item1) => {
-    //when user picks filter, adds it here to the list, list after button apply is clicked runs other functions and sends array of results to charts
-    return console.log("clicked" + item1);
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption }, () =>
+      console.log(`Option selected:`, this.state.selectedOption)
+    );
   };
 
-  componentDidMount() {
-    this.filterPerCountry(euStaticData.records);
-    this.getNumbOfDeathsPerMonth("Poland", euStaticData.records);
-  }
-
   render() {
+    const { selectedOption } = this.state;
     return (
       <div>
         <Header />
@@ -57,9 +53,9 @@ class App extends Component {
         <Dropdown
           className="dropdown"
           options={this.filterPerCountry(euStaticData.records)}
-          value="countries."
-          placeholder="Select an option"
-          onChange={this.addFilter(this.value)}
+          value={selectedOption}
+          placeholder="countries."
+          onChange={this.handleChange}
         />
         <div className="container">
           {this.state.data && this.state.data.length > 0 ? (
@@ -70,7 +66,7 @@ class App extends Component {
               />
             </div>
           ) : (
-            <div>Loading data...</div>
+            ""
           )}
         </div>
       </div>
