@@ -71,6 +71,7 @@ class App extends Component {
           placeholder="months."
           onChange={console.log(selectedMonth)}
         />
+
         <Dropdown
           className="dropdown"
           options={this.filterPerCountry(euStaticData.records)}
@@ -78,6 +79,7 @@ class App extends Component {
           placeholder="countries."
           onChange={this.handleChange}
         />
+
         <div className="container">
           {this.state.data && this.state.data.length > 0 ? (
             <div>
