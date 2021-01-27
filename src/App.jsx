@@ -5,6 +5,7 @@ import Subpage from "./components/Subpage";
 import "./components/components.scss";
 import euStaticData from "./EUcovidData.json";
 import Dropdown from "react-dropdown";
+import { Multiselect } from "multiselect-react-dropdown";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -12,15 +13,24 @@ class App extends Component {
       selectedFilters: [],
       selectedCountries: null,
       selecteMonth: null,
+      selectedValue: [],
+      filterCountries: [],
     };
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount() {
+    this.setState({
+      filterCountries: this.getCountries(euStaticData.records),
+    });
+  }
+
   loadStaticData = (array) => {
     this.setState({
       data: array,
     });
   };
-  filterPerCountry = (array) => {
+  getCountries = (array) => {
     let results = [];
     array.forEach((item) => {
       if (!results.includes(item.countriesAndTerritories)) {
@@ -43,6 +53,9 @@ class App extends Component {
       console.log(`Option selected:`, this.state.selectedCountries)
     );
   };
+  onSelect(selectedList, selectedItem) {}
+
+  onRemove(selectedList, removedItem) {}
 
   render() {
     const { selectedCountries, selectedMonth } = this.state;
@@ -74,10 +87,18 @@ class App extends Component {
 
         <Dropdown
           className="dropdown"
-          options={this.filterPerCountry(euStaticData.records)}
+          options={this.getCountries(euStaticData.records)}
           value={selectedCountries}
           placeholder="countries."
           onChange={this.handleChange}
+        />
+        <Multiselect
+          className="dropdown"
+          options={this.state.filterCountries} // Options to display in the dropdown
+          selectedValues={this.state.selectedValue} // Preselected value to persist in dropdown
+          onSelect={this.onSelect} // Function will trigger on select event
+          onRemove={this.onRemove} // Function will trigger on remove event
+          displayValue="countries." // Property name to display in the dropdown options
         />
 
         <div className="container">
