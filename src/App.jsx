@@ -61,7 +61,10 @@ class App extends Component {
       { label: "November", value: 11 },
       { label: "December", value: 12 },
     ];
-    const years = [{label: "2020", value: 2020}, {label: "2021", value:2021}];
+    const years = [
+      { label: "2020", value: 2020 },
+      { label: "2021", value: 2021 },
+    ];
     return (
       <div>
         <Header />
@@ -71,12 +74,13 @@ class App extends Component {
           components={animatedComponents}
           defaultValue="months."
           isMulti
+          width='200px'
           options={months}
         />
         <Select
           closeMenuOnSelect={false}
           components={animatedComponents}
-          defaultValue="years."
+          defaultValue={[years[0]]}
           isMulti
           options={years}
         />
