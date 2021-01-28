@@ -40,8 +40,10 @@ class App extends Component {
       console.log(`Option selected:`, this.state.selectedMonth)
     );
   };
-  handleInputChange(){
-
+  handleInputChange(value){
+    let filters = [];
+    filters.push(value);
+    console.log(filters);
   }
 
   render() {
@@ -71,18 +73,20 @@ class App extends Component {
         <Subpage />
         <Select
           closeMenuOnSelect={false}
+          label='countries.'
           components={animatedComponents}
           defaultValue={[years[0]]}
           isMulti
           options={years}
+          onChange={this.handleInputChange}
         />
         <Select
           closeMenuOnSelect={false}
           components={animatedComponents}
           defaultValue={[months[0]]}
           isMulti
-          width="200px"
           options={months}
+          onChange={this.handleInputChange}
         />
         <Select
           closeMenuOnSelect={false}
@@ -90,6 +94,7 @@ class App extends Component {
           defaultValue={[years[0]]}
           isMulti
           options={years}
+          onChange={this.handleInputChange}
         />
         <div className="container">
           {this.state.data && this.state.data.length > 0 ? (
