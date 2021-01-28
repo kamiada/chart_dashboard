@@ -40,12 +40,12 @@ class App extends Component {
       console.log(`Option selected:`, this.state.selectedMonth)
     );
   };
-  onSelect(selectedList, selectedItem) {}
+  handleInputChange(){
 
-  onRemove(selectedList, removedItem) {}
+  }
 
   render() {
-    const { selectedMonth, selectedYear } = this.state;
+    const { selectedMonth, selectedYear, selectedCountries } = this.state;
     const animatedComponents = makeAnimated();
     const months = [
       { label: "January", value: 1 },
@@ -72,9 +72,16 @@ class App extends Component {
         <Select
           closeMenuOnSelect={false}
           components={animatedComponents}
-          defaultValue="months."
+          defaultValue={[years[0]]}
           isMulti
-          width='200px'
+          options={years}
+        />
+        <Select
+          closeMenuOnSelect={false}
+          components={animatedComponents}
+          defaultValue={[months[0]]}
+          isMulti
+          width="200px"
           options={months}
         />
         <Select
