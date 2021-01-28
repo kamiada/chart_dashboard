@@ -43,7 +43,7 @@ class App extends Component {
   onRemove(selectedList, removedItem) {}
 
   render() {
-    const { selectedCountries, selectedMonth } = this.state;
+    const { selectedMonth } = this.state;
     const months = [
       { label: 'January', value: 1},
       { label: 'February', value: 2},
