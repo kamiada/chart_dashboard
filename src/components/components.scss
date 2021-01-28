@@ -54,9 +54,15 @@ header {
   font-size: 27px;
 }
 .container-dropdown {
-  display: inline-block;
+  display: flex;
 }
 .css-2b097c-container {
   width: 250px;
-  display: inline-block;
+  margin: 0px 5px 5px 5px;
+}
+.submit_btn {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 27px;
+  border-radius: 5%;
+  background-color:  #feadb9;
 }

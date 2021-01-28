@@ -12,10 +12,9 @@ class App extends Component {
     super(props);
     this.state = {
       selectedFilters: [],
-      selectedCountries: [],
-      selectedMonth: null,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.addSelectedFilters = this.addSelectedFilters.bind(this);
   }
   getCountries = (array) => {
     let results = [];
@@ -40,14 +39,16 @@ class App extends Component {
       console.log(`Option selected:`, this.state.selectedMonth)
     );
   };
-  handleInputChange(value){
-    let filters = [];
-    filters.push(value);
-    console.log(filters);
+  addSelectedFilters(value){
+    this.setState({ selectedFilters: [...value] });
+    console.log(this.state.selectedFilters);
+  }
+  submit(){
+
   }
 
   render() {
-    const { selectedMonth, selectedYear, selectedCountries } = this.state;
+    const { selectedFilters } = this.state;
     const animatedComponents = makeAnimated();
     const months = [
       { label: "January", value: 1 },
@@ -67,35 +68,51 @@ class App extends Component {
       { label: "2020", value: 2020 },
       { label: "2021", value: 2021 },
     ];
+    const parameters = [
+      {label: 'Number of cases', value: "cases_weekly"},
+      {label: 'Number of deaths', value: "deaths_weekly"}
+    ]
     return (
       <div>
         <Header />
         <Subpage />
+        <div className="container-dropdown">
+          {/* parameters: number of cases (monthly), number of deaths (monthly) */}
+        <Select
+          closeMenuOnSelect={true}
+          components={animatedComponents}
+          isMulti
+          options={parameters}
+          onChange={this.addSelectedFilters}
+        />
+        {/* country */}
         <Select
           closeMenuOnSelect={false}
-          label='countries.'
           components={animatedComponents}
-          defaultValue={[years[0]]}
           isMulti
           options={years}
-          onChange={this.handleInputChange}
+          onChange={this.addSelectedFilters}
         />
+        {/* month */}
         <Select
           closeMenuOnSelect={false}
           components={animatedComponents}
-          defaultValue={[months[0]]}
           isMulti
           options={months}
-          onChange={this.handleInputChange}
+          onChange={this.addSelectedFilters}
         />
+        {/* year */}
         <Select
-          closeMenuOnSelect={false}
+          closeMenuOnSelect={true}
           components={animatedComponents}
-          defaultValue={[years[0]]}
           isMulti
           options={years}
-          onChange={this.handleInputChange}
+          onChange={this.addSelectedFilters}
         />
+        <button className="submit_btn" onClick={this.submit}>
+          Search
+        </button>
+        </div>
         <div className="container">
           {this.state.data && this.state.data.length > 0 ? (
             <div>
