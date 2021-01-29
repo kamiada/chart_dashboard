@@ -17,7 +17,6 @@ class App extends Component {
       selectedYears:[],
       selectedParameters:[],
     };
-    this.addSelectedFilters = this.addSelectedFilters.bind(this);
     this.getCountries = this.getCountries.bind(this);
   }
   getCountries() {
@@ -39,20 +38,40 @@ class App extends Component {
     return results;
   };
   addSelectedParameters(value){
-    this.setState({ selectedParameters: [...value] });
-    console.log(this.state.selectedParameters);
+    let parameters = [];
+    if(!parameters.includes(value)){
+      parameters.push(value);
+    }
+    return parameters;
   }
   addSelectedCountries(value){
-    this.setState({ selectedCountries: [...value] });
-    console.log(this.state.selectedCountries);
+    let parameters = [];
+    if(!parameters.includes(value)){
+      parameters.push(value);
+    }
+    return parameters;
   }
   addSelectedMonths(value){
-    this.setState({ selectedMonths: [...value] });
-    console.log(this.state.selectedMonths);
+    let months = [];
+    if(!months.includes(value)){
+      months.push(value);
+    }
+    return months;
   }
   addSelectedYears(value){
-    this.setState({ selectedYears: [...value] });
-    console.log(this.state.selectedYears);
+    let years = [];
+    if(!years.includes(value)){
+      years.push(value);
+    }
+    return years;
+  }
+  addFiltersIntoAnArray(value){
+    let selectedFilters = [];
+    if(!selectedFilters.includes(value)){
+      selectedFilters.push([...value]);
+    }
+    console.log(selectedFilters);
+    return selectedFilters;
   }
   getSelectedFilters(){
 
