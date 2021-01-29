@@ -13,21 +13,31 @@ class App extends Component {
     this.state = {
       selectedFilters: [],
       selectedCountries: [],
-      selectedMonths:[],
-      selectedYears:[],
-      selectedParameters:[],
+      selectedMonths: [],
+      selectedYears: [],
+      selectedParameters: [],
     };
     this.getCountries = this.getCountries.bind(this);
+    this.submit = this.submit.bind(this);
+    this.addSelectedParameters = this.addSelectedParameters.bind(this);
+    this.addSelectedCountries = this.addSelectedCountries.bind(this);
+    this.addSelectedMonths = this.addSelectedMonths.bind(this);
+    this.addSelectedYears = this.addSelectedYears.bind(this);
   }
   getCountries() {
     let results = [];
     euStaticData.records.forEach((item) => {
-      if (!results.some(entry => entry.value === item.countriesAndTerritories)) {
-        results.push({ label: item.countriesAndTerritories, value: item.countriesAndTerritories});
+      if (
+        !results.some((entry) => entry.value === item.countriesAndTerritories)
+      ) {
+        results.push({
+          label: item.countriesAndTerritories,
+          value: item.countriesAndTerritories,
+        });
       }
     });
     return results;
-  };
+  }
   getNumbOfDeathsPerMonth = (filter_where, array) => {
     let results = [];
     array.forEach((item) => {
@@ -37,49 +47,60 @@ class App extends Component {
     });
     return results;
   };
-  addSelectedParameters(value){
+  addSelectedParameters(value) {
     let parameters = [];
-    if(!parameters.includes(value)){
+    if (!parameters.includes(value)) {
       parameters.push(value);
     }
-    return parameters;
+    this.setState({
+      selectedParameters: parameters,
+    });
   }
-  addSelectedCountries(value){
-    let parameters = [];
-    if(!parameters.includes(value)){
-      parameters.push(value);
+  addSelectedCountries(value) {
+    let countries = [];
+    if (!countries.includes(value)) {
+      countries.push(value);
     }
-    return parameters;
+    this.setState({
+      selectedCountries: countries,
+    });
   }
-  addSelectedMonths(value){
+  addSelectedMonths(value) {
     let months = [];
-    if(!months.includes(value)){
+    if (!months.includes(value)) {
       months.push(value);
     }
-    return months;
+    this.setState({
+      selectedMonths: months,
+    });
   }
-  addSelectedYears(value){
+  addSelectedYears(value) {
     let years = [];
-    if(!years.includes(value)){
+    if (!years.includes(value)) {
       years.push(value);
     }
-    return years;
+    this.setState({
+      selectedYears: years,
+    });
   }
-  addFiltersIntoAnArray(value){
+  addFiltersIntoAnArray(value) {
     let selectedFilters = [];
-    if(!selectedFilters.includes(value)){
+    if (!selectedFilters.includes(value)) {
       selectedFilters.push([...value]);
     }
-    console.log(selectedFilters);
     return selectedFilters;
   }
-  getSelectedFilters(){
-
-  }
-  submit(){
-
+  getSelectedFilters() {}
+  submit = (array) => {
+    if(array.length >0){
+      console.log('submit', array);
+    } else { console.log('mope')}
   }
   render() {
+    const { selectedParameters, selectedCountries, selectedMonths, selectedYears } = this.state;
+    const selectedFiltersArray = [
+      ...selectedParameters.concat(selectedCountries, selectedMonths, selectedYears)
+    ]
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const months = [
@@ -101,49 +122,49 @@ class App extends Component {
       { label: "2021", value: 2021 },
     ];
     const parameters = [
-      {label: 'Number of cases', value: "cases_weekly"},
-      {label: 'Number of deaths', value: "deaths_weekly"}
-    ]
+      { label: "Number of cases", value: "cases_weekly" },
+      { label: "Number of deaths", value: "deaths_weekly" },
+    ];
     return (
       <div>
         <Header />
         <Subpage />
         <div className="container-dropdown">
           {/* parameters: number of cases (monthly), number of deaths (monthly) */}
-        <Select
-          closeMenuOnSelect={true}
-          components={animatedComponents}
-          isMulti
-          options={parameters}
-          onChange={this.addSelectedParameters}
-        />
-        {/* country */}
-        <Select
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          isMulti
-          options={countries}
-          onChange={this.addSelectedCountries}
-        />
-        {/* month */}
-        <Select
-          closeMenuOnSelect={false}
-          components={animatedComponents}
-          isMulti
-          options={months}
-          onChange={this.addSelectedMonths}
-        />
-        {/* year */}
-        <Select
-          closeMenuOnSelect={true}
-          components={animatedComponents}
-          isMulti
-          options={years}
-          onChange={this.addSelectedYears}
-        />
-        <button className="submit_btn" onClick={this.submit}>
-          Search
-        </button>
+          <Select
+            closeMenuOnSelect={true}
+            components={animatedComponents}
+            isMulti
+            options={parameters}
+            onChange={this.addSelectedParameters}
+          />
+          {/* country */}
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            isMulti
+            options={countries}
+            onChange={this.addSelectedCountries}
+          />
+          {/* month */}
+          <Select
+            closeMenuOnSelect={false}
+            components={animatedComponents}
+            isMulti
+            options={months}
+            onChange={this.addSelectedMonths}
+          />
+          {/* year */}
+          <Select
+            closeMenuOnSelect={true}
+            components={animatedComponents}
+            isMulti
+            options={years}
+            onChange={this.addSelectedYears}
+          />
+          <button className="submit_btn" onClick={this.submit(selectedFiltersArray)}>
+            Search
+          </button>
         </div>
         <div className="container">
           {this.state.data && this.state.data.length > 0 ? (
