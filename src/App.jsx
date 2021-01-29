@@ -12,8 +12,11 @@ class App extends Component {
     super(props);
     this.state = {
       selectedFilters: [],
+      selectedCountries: [],
+      selectedMonths:[],
+      selectedYears:[],
+      selectedParameters:[],
     };
-    this.handleChange = this.handleChange.bind(this);
     this.addSelectedFilters = this.addSelectedFilters.bind(this);
     this.getCountries = this.getCountries.bind(this);
   }
@@ -35,22 +38,30 @@ class App extends Component {
     });
     return results;
   };
-  handleChange = (selectedMonth) => {
-    this.setState({ selectedMonth }, () =>
-      console.log(`Option selected:`, this.state.selectedMonth)
-    );
-  };
-  addSelectedFilters(value){
-    this.setState({ selectedFilters: [...value] });
-    console.log(this.state.selectedFilters);
+  addSelectedParameters(value){
+    this.setState({ selectedParameters: [...value] });
+    console.log(this.state.selectedParameters);
+  }
+  addSelectedCountries(value){
+    this.setState({ selectedCountries: [...value] });
+    console.log(this.state.selectedCountries);
+  }
+  addSelectedMonths(value){
+    this.setState({ selectedMonths: [...value] });
+    console.log(this.state.selectedMonths);
+  }
+  addSelectedYears(value){
+    this.setState({ selectedYears: [...value] });
+    console.log(this.state.selectedYears);
+  }
+  getSelectedFilters(){
+
   }
   submit(){
 
   }
   render() {
-    const { selectedFilters} = this.state;
     const countries = this.getCountries();
-
     const animatedComponents = makeAnimated();
     const months = [
       { label: "January", value: 1 },
@@ -85,7 +96,7 @@ class App extends Component {
           components={animatedComponents}
           isMulti
           options={parameters}
-          onChange={this.addSelectedFilters}
+          onChange={this.addSelectedParameters}
         />
         {/* country */}
         <Select
@@ -93,7 +104,7 @@ class App extends Component {
           components={animatedComponents}
           isMulti
           options={countries}
-          onChange={this.addSelectedFilters}
+          onChange={this.addSelectedCountries}
         />
         {/* month */}
         <Select
@@ -101,7 +112,7 @@ class App extends Component {
           components={animatedComponents}
           isMulti
           options={months}
-          onChange={this.addSelectedFilters}
+          onChange={this.addSelectedMonths}
         />
         {/* year */}
         <Select
@@ -109,7 +120,7 @@ class App extends Component {
           components={animatedComponents}
           isMulti
           options={years}
-          onChange={this.addSelectedFilters}
+          onChange={this.addSelectedYears}
         />
         <button className="submit_btn" onClick={this.submit}>
           Search
