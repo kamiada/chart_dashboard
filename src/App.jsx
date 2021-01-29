@@ -20,8 +20,8 @@ class App extends Component {
   getCountries() {
     let results = [];
     euStaticData.records.forEach((item) => {
-      if (!results.includes(item.countriesAndTerritories)) {
-        results.push(item.countriesAndTerritories);
+      if (!results.some(entry => entry.value === item.countriesAndTerritories)) {
+        results.push({ label: item.countriesAndTerritories, value: item.countriesAndTerritories});
       }
     });
     return results;
@@ -50,7 +50,6 @@ class App extends Component {
   render() {
     const { selectedFilters} = this.state;
     const countries = this.getCountries();
-    console.log(countries);
 
     const animatedComponents = makeAnimated();
     const months = [
