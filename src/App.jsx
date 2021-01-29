@@ -162,7 +162,7 @@ class App extends Component {
             options={years}
             onChange={this.addSelectedYears}
           />
-          <button className="submit_btn" onClick={this.submit(selectedFiltersArray)}>
+          <button className="submit_btn" onClick={() => this.submit(selectedFiltersArray)}>
             Search
           </button>
         </div>
