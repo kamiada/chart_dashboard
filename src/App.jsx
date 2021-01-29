@@ -12,23 +12,19 @@ class App extends Component {
     super(props);
     this.state = {
       selectedFilters: [],
-      listOfCountries: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.addSelectedFilters = this.addSelectedFilters.bind(this);
     this.getCountries = this.getCountries.bind(this);
   }
-  getCountries (){
+  getCountries() {
     let results = [];
     euStaticData.records.forEach((item) => {
       if (!results.includes(item.countriesAndTerritories)) {
         results.push(item.countriesAndTerritories);
       }
     });
-    this.setState({
-      listOfCountries: results,
-    })
-    return this.state.listOfCountries;
+    return results;
   };
   getNumbOfDeathsPerMonth = (filter_where, array) => {
     let results = [];
@@ -51,11 +47,11 @@ class App extends Component {
   submit(){
 
   }
-  this.getCountries();
-
   render() {
-    const { selectedFilters, listOfCountries} = this.state;
-    console.log(listOfCountries);
+    const { selectedFilters} = this.state;
+    const countries = this.getCountries();
+    console.log(countries);
+
     const animatedComponents = makeAnimated();
     const months = [
       { label: "January", value: 1 },
@@ -97,7 +93,7 @@ class App extends Component {
           closeMenuOnSelect={false}
           components={animatedComponents}
           isMulti
-          options={listOfCountries}
+          options={countries}
           onChange={this.addSelectedFilters}
         />
         {/* month */}
