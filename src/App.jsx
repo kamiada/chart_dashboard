@@ -90,7 +90,6 @@ class App extends Component {
     }
     return selectedFilters;
   }
-  getSelectedFilters() {}
   submit = (array) => {
     if(array.length >0){
       console.log('submit', array);
