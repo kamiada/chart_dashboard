@@ -95,16 +95,41 @@ class App extends Component {
   getResults = (filtersArray) => {
     const results = euStaticData.filter(data => data === filtersArray);
     return results;
+
+    ///SHOULD WORK LIKE THIS:
+
+  //   var obj = {
+  //     'homes': [{
+  //             "home_id": "1",
+  //             "price": "925",
+  //             "sqft": "1100",
+  //             "num_of_beds": "2",
+  //             "num_of_baths": "2.0",
+  //         }, {
+  //             "home_id": "2",
+  //             "price": "1425",
+  //             "sqft": "1900",
+  //             "num_of_beds": "4",
+  //             "num_of_baths": "2.5",
+  //         },   
+  //     ]
+  // };
+  
+  // const toCompare = [{home_id: "1"}];
+  // const result = obj.homes.filter(el => el.home_id === toCompare[0].home_id);
+  
+  // console.log(result);
   }
 
   submit = (array) => {
     //here array of arrays in which each has an object {label, value}, needs to be deconstructed into an array of 
-    if(array.length >0){
+    if(array.length > 0){
       console.log('submit', array);
+      // this.getResults(array);
       this.setState({
         clicked: true,
       })
-    } else { console.log('mope')}
+    }
   }
 
   reset(){
@@ -190,10 +215,10 @@ class App extends Component {
         </div>
         <div className="container">
           {selectedFiltersArray.length > 0 && this.state.clicked === true ? 
-          <h2>
+          <h2 className="info_titles">
             charts will appear here
           </h2> :
-          <h2>
+          <h2 className="info_titles">
             Pick filters and click submit to see charts
           </h2>
           }
