@@ -17,6 +17,7 @@ class App extends Component {
       selectedYears: [],
       selectedParameters: [],
       clicked: false,
+      renderMe: [],
     };
     this.getCountries = this.getCountries.bind(this);
     this.submit = this.submit.bind(this);
@@ -24,6 +25,7 @@ class App extends Component {
     this.addSelectedCountries = this.addSelectedCountries.bind(this);
     this.addSelectedMonths = this.addSelectedMonths.bind(this);
     this.addSelectedYears = this.addSelectedYears.bind(this);
+    this.getResults = this.getResults.bind(this);
   }
   getCountries() {
     let results = [];
@@ -87,14 +89,12 @@ class App extends Component {
   }
 
   getResults = (filtersObject) => {
-    console.log(filtersObject[1].value);
     const results = euStaticData.records.filter(data => 
       data.countriesAndTerritories === filtersObject[1].value 
       &&
       this.changeIntoMonth(data.dateRep) === filtersObject[2].value
       );
-    console.log(filtersObject);
-    console.log('getResults', results);
+    
     return results;
   }
 
@@ -192,9 +192,9 @@ class App extends Component {
         </div>
         <div className="container">
           {selectedFiltersArray.length > 0 && this.state.clicked === true ? 
-          <h2 className="info_titles">
-            charts will appear here
-          </h2> :
+          <Barchart 
+
+          />:
           <h2 className="info_titles">
             Pick filters and click submit to see charts
           </h2>
