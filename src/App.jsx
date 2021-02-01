@@ -16,6 +16,7 @@ class App extends Component {
       selectedMonths: [],
       selectedYears: [],
       selectedParameters: [],
+      clicked: false,
     };
     this.getCountries = this.getCountries.bind(this);
     this.submit = this.submit.bind(this);
@@ -90,11 +91,19 @@ class App extends Component {
     }
     return selectedFilters;
   }
+
+  getResults = (filtersArray) => {
+    const results = euStaticData.filter(data => data === filtersArray);
+    return results;
+  }
+
   submit = (array) => {
+    //here array of arrays in which each has an object {label, value}, needs to be deconstructed into an array of 
     if(array.length >0){
       console.log('submit', array);
     } else { console.log('mope')}
   }
+
   render() {
     const { selectedParameters, selectedCountries, selectedMonths, selectedYears } = this.state;
     const selectedFiltersArray = [
@@ -166,16 +175,14 @@ class App extends Component {
           </button>
         </div>
         <div className="container">
-          {this.state.data && this.state.data.length > 0 ? (
-            <div>
-              <Barchart
-                label="Number of casess"
-                data={this.state.data.cases_weekly}
-              />
-            </div>
-          ) : (
-            ""
-          )}
+          {selectedFiltersArray.length > 0 && this.state.clicked === true ? 
+          <h2>
+            charts will appear here
+          </h2> :
+          <h2>
+            Pick filters and click submit to see charts
+          </h2>
+          }
         </div>
       </div>
     );
