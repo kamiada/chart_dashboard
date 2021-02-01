@@ -92,8 +92,12 @@ class App extends Component {
     return selectedFilters;
   }
 
-  getResults = (filtersArray) => {
-    const results = euStaticData.filter(data => data === filtersArray);
+  getResults = (filtersObject) => {
+    console.log(filtersObject[1].value);
+    const results = euStaticData.records.filter(data => 
+      data.countriesAndTerritories === filtersObject[1].value);
+    console.log(filtersObject);
+    console.log('getResults', results);
     return results;
 
     ///SHOULD WORK LIKE THIS:
@@ -122,17 +126,8 @@ class App extends Component {
   }
 
   submit = (array) => {
-    //here array of arrays in which each has an object {label, value}, needs to be deconstructed into an array of 
     if(array.length > 0){
-      console.log('submit', array);
-      // this.getResults(array);
-      let filtersObject = {filters:[]};
-      array.flat().forEach(element => 
-        filtersObject.filters.push({
-          test: element
-        })
-      )
-      console.log('test object', filtersObject);
+      this.getResults(array.flat());
       this.setState({
         clicked: true,
       })
