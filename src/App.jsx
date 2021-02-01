@@ -39,15 +39,9 @@ class App extends Component {
     });
     return results;
   }
-  getNumbOfDeathsPerMonth = (filter_where, array) => {
-    let results = [];
-    array.forEach((item) => {
-      if (item.countriesAndTerritories === filter_where) {
-        results.push(item.deaths_weekly);
-      }
-    });
-    return results;
-  };
+  //date format is always DD/MM/YYYY
+  changeIntoMonth = str => str.substring(3, 5);
+  
   addSelectedParameters(value) {
     let parameters = [];
     if (!parameters.includes(value)) {
@@ -95,34 +89,13 @@ class App extends Component {
   getResults = (filtersObject) => {
     console.log(filtersObject[1].value);
     const results = euStaticData.records.filter(data => 
-      data.countriesAndTerritories === filtersObject[1].value);
+      data.countriesAndTerritories === filtersObject[1].value 
+      &&
+      this.changeIntoMonth(data.dateRep) === filtersObject[2].value
+      );
     console.log(filtersObject);
     console.log('getResults', results);
     return results;
-
-    ///SHOULD WORK LIKE THIS:
-
-  //   var obj = {
-  //     'homes': [{
-  //             "home_id": "1",
-  //             "price": "925",
-  //             "sqft": "1100",
-  //             "num_of_beds": "2",
-  //             "num_of_baths": "2.0",
-  //         }, {
-  //             "home_id": "2",
-  //             "price": "1425",
-  //             "sqft": "1900",
-  //             "num_of_beds": "4",
-  //             "num_of_baths": "2.5",
-  //         },   
-  //     ]
-  // };
-  
-  // const toCompare = [{home_id: "1"}];
-  // const result = obj.homes.filter(el => el.home_id === toCompare[0].home_id);
-  
-  // console.log(result);
   }
 
   submit = (array) => {
@@ -150,18 +123,18 @@ class App extends Component {
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const months = [
-      { label: "January", value: 1 },
-      { label: "February", value: 2 },
-      { label: "March", value: 3 },
-      { label: "April", value: 4 },
-      { label: "May", value: 5 },
-      { label: "June", value: 6 },
-      { label: "July", value: 7 },
-      { label: "August", value: 8 },
-      { label: "September", value: 9 },
-      { label: "October", value: 10 },
-      { label: "November", value: 11 },
-      { label: "December", value: 12 },
+      { label: "January", value: '01' },
+      { label: "February", value: '02' },
+      { label: "March", value: '03' },
+      { label: "April", value: '04' },
+      { label: "May", value: '05' },
+      { label: "June", value: '06' },
+      { label: "July", value: '07' },
+      { label: "August", value: '08' },
+      { label: "September", value: '09' },
+      { label: "October", value: '10' },
+      { label: "November", value: '11' },
+      { label: "December", value: '12' },
     ];
     const years = [
       { label: "2020", value: 2020 },
