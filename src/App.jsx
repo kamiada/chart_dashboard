@@ -101,7 +101,16 @@ class App extends Component {
     //here array of arrays in which each has an object {label, value}, needs to be deconstructed into an array of 
     if(array.length >0){
       console.log('submit', array);
+      this.setState({
+        clicked: true,
+      })
     } else { console.log('mope')}
+  }
+
+  reset(){
+    this.setState({
+      clicked: false,
+    })
   }
 
   render() {
@@ -170,9 +179,14 @@ class App extends Component {
             options={years}
             onChange={this.addSelectedYears}
           />
-          <button className="submit_btn" onClick={() => this.submit(selectedFiltersArray)}>
+          <button className="main_page_btn" onClick={() => this.submit(selectedFiltersArray)}>
             Search
           </button>
+          {
+            this.state.clicked === true && (
+              <button className="main_page_btn" onClick={() => this.reset()}>Reset</button>
+            )
+          }
         </div>
         <div className="container">
           {selectedFiltersArray.length > 0 && this.state.clicked === true ? 
