@@ -126,6 +126,13 @@ class App extends Component {
     if(array.length > 0){
       console.log('submit', array);
       // this.getResults(array);
+      let filtersObject = {filters:[]};
+      array.flat().forEach(element => 
+        filtersObject.filters.push({
+          test: element
+        })
+      )
+      console.log('test object', filtersObject);
       this.setState({
         clicked: true,
       })
@@ -140,9 +147,11 @@ class App extends Component {
 
   render() {
     const { selectedParameters, selectedCountries, selectedMonths, selectedYears } = this.state;
+
     const selectedFiltersArray = [
       ...selectedParameters.concat(selectedCountries, selectedMonths, selectedYears)
     ]
+
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const months = [
