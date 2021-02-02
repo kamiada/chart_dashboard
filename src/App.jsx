@@ -34,6 +34,7 @@ class App extends Component {
         !results.some((entry) => entry.value === item.countriesAndTerritories)
       ) {
         results.push({
+          type: "country",
           label: item.countriesAndTerritories,
           value: item.countriesAndTerritories,
         });
@@ -42,8 +43,8 @@ class App extends Component {
     return results;
   }
   //date format is always DD/MM/YYYY
-  changeIntoMonth = str => str.substring(3, 5);
-  
+  changeIntoMonth = (str) => str.substring(3, 5);
+
   addSelectedParameters(value) {
     let parameters = [];
     if (!parameters.includes(value)) {
@@ -89,60 +90,69 @@ class App extends Component {
   }
 
   getResults = (filtersObject) => {
-    const results = euStaticData.records.filter(data => 
-      data.countriesAndTerritories === filtersObject[1].value 
-      &&
-      this.changeIntoMonth(data.dateRep) === filtersObject[2].value
-      );
-    
+    const results = euStaticData.records.filter(
+      (data) =>
+        data.countriesAndTerritories === filtersObject[1].value &&
+        this.changeIntoMonth(data.dateRep) === filtersObject[2].value
+    );
     return results;
-  }
+  };
 
   submit = (array) => {
-    if(array.length > 0){
+    if (array.length > 0) {
       this.getResults(array.flat());
+      console.log(array.flat());
       this.setState({
         clicked: true,
-      })
+      });
     }
-  }
+  };
 
-  reset(){
+  reset() {
     this.setState({
       clicked: false,
-    })
+    });
   }
 
   render() {
-    const { selectedParameters, selectedCountries, selectedMonths, selectedYears } = this.state;
+    const {
+      selectedParameters,
+      selectedCountries,
+      selectedMonths,
+      selectedYears,
+    } = this.state;
 
     const selectedFiltersArray = [
-      ...selectedParameters.concat(selectedCountries, selectedMonths, selectedYears)
-    ]
+      ...selectedParameters.concat(
+        selectedCountries,
+        selectedMonths,
+        selectedYears
+      ),
+    ];
 
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const months = [
-      { label: "January", value: '01' },
-      { label: "February", value: '02' },
-      { label: "March", value: '03' },
-      { label: "April", value: '04' },
-      { label: "May", value: '05' },
-      { label: "June", value: '06' },
-      { label: "July", value: '07' },
-      { label: "August", value: '08' },
-      { label: "September", value: '09' },
-      { label: "October", value: '10' },
-      { label: "November", value: '11' },
-      { label: "December", value: '12' },
+      { type: "month", label: "January", value: "01" },
+      { type: "month", label: "February", value: "02" },
+      { type: "month", label: "March", value: "03" },
+      { type: "month", label: "April", value: "04" },
+      { type: "month", label: "May", value: "05" },
+      { type: "month", label: "June", value: "06" },
+      { type: "month", label: "July", value: "07" },
+      { type: "month", label: "August", value: "08" },
+      { type: "month", label: "September", value: "09" },
+      { type: "month", label: "October", value: "10" },
+      { type: "month", label: "November", value: "11" },
+      { type: "month", label: "December", value: "12" },
     ];
     const years = [
-      { label: "2020", value: 2020 },
-      { label: "2021", value: 2021 },
+      { type:"year", label: "2020", value: 2020 },
+      { type:"year", label: "2021", value: 2021 },
     ];
     const parameters = [
-      { label: "Number of cases", value: "cases_weekly" },
-      { label: "Number of deaths", value: "deaths_weekly" },
+      { type: "parameter", label: "Number of cases", value: "cases_weekly" },
+      { type: "parameter", label: "Number of deaths", value: "deaths_weekly" },
     ];
     return (
       <div>
@@ -181,24 +191,26 @@ class App extends Component {
             options={years}
             onChange={this.addSelectedYears}
           />
-          <button className="main_page_btn" onClick={() => this.submit(selectedFiltersArray)}>
+          <button
+            className="main_page_btn"
+            onClick={() => this.submit(selectedFiltersArray)}
+          >
             Search
           </button>
-          {
-            this.state.clicked === true && (
-              <button className="main_page_btn" onClick={() => this.reset()}>Reset</button>
-            )
-          }
+          {this.state.clicked === true && (
+            <button className="main_page_btn" onClick={() => this.reset()}>
+              Reset
+            </button>
+          )}
         </div>
         <div className="container">
-          {selectedFiltersArray.length > 0 && this.state.clicked === true ? 
-          <Barchart 
-
-          />:
-          <h2 className="info_titles">
-            Pick filters and click submit to see charts
-          </h2>
-          }
+          {selectedFiltersArray.length > 0 && this.state.clicked === true ? (
+            <Barchart />
+          ) : (
+            <h2 className="info_titles">
+              Pick filters and click submit to see charts
+            </h2>
+          )}
         </div>
       </div>
     );
