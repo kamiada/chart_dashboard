@@ -22,22 +22,30 @@ const months = [
   { type: "month", label: "December", value: "12" },
 ];
 const years = [
-  { type:"year", label: "2020", value: 2020 },
-  { type:"year", label: "2021", value: 2021 },
+  { type: "year", label: "2020", value: 2020 },
+  { type: "year", label: "2021", value: 2021 },
 ];
 const parameters = [
   { type: "parameter", label: "Number of cases", value: "cases_weekly" },
   { type: "parameter", label: "Number of deaths", value: "deaths_weekly" },
 ];
 
-
+const removeDuplicates = (array) => {
+  let sorted_arr = array.slice().sort();
+  let results = [];
+  for (let i = 0; i < sorted_arr.length - 1; i++) {
+    if (sorted_arr[i + 1] === sorted_arr[i]) {
+      results.push(sorted_arr[i]);
+    }
+  }
+  return sorted_arr;
+};
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedFilters: [],
       clicked: false,
-      resultsArray: [],
     };
     this.getCountries = this.getCountries.bind(this);
     this.submit = this.submit.bind(this);
@@ -63,14 +71,18 @@ class App extends Component {
   changeIntoMonth = (str) => str.substring(3, 5);
 
   addFiltersIntoAnArray(value) {
-    const isSelected = this.state.selectedFilters.includes(value);
+    const unique_value = removeDuplicates(value.flat());
+    const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
+
     const newSelection = isSelected
-    ? this.state.selectedFilters.filter(currentValue => currentValue !== value)
-    : [...this.state.selectedFilters, value];
+      ? this.state.selectedFilters.filter(
+          (currentValue) => currentValue !== unique_value
+        )
+      : [...this.state.selectedFilters, unique_value];
     this.setState({
       selectedFilters: newSelection,
     });
-  };
+  }
 
   getResults = (filtersObject) => {
     const results = euStaticData.records.filter(
@@ -100,7 +112,7 @@ class App extends Component {
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const { selectedFilters } = this.state;
-
+    console.log(selectedFilters);
     return (
       <div>
         <Header />
@@ -140,7 +152,7 @@ class App extends Component {
           />
           <button
             className="main_page_btn"
-            onClick={()=>console.log('',selectedFilters)}
+            onClick={() => console.log("", selectedFilters)}
           >
             Search
           </button>
@@ -150,15 +162,7 @@ class App extends Component {
             </button>
           )}
         </div>
-        <div className="container">
-          {/* {selectedFiltersArray.length > 0 && this.state.clicked === true ? (
-            <Barchart />
-          ) : (
-            <h2 className="info_titles">
-              Pick filters and click submit to see charts
-            </h2>
-          )} */}
-        </div>
+        <div className="container"></div>
       </div>
     );
   }

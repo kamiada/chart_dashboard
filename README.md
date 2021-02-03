@@ -11,10 +11,12 @@ I found this articles quite useful for learning about how Chart.JS works with Re
 https://blog.bitsrc.io/customizing-chart-js-in-react-2199fa81530a
 https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react
 
+BUT! 
 
-Data taken from lovely places like:
+Due to the fact that I am perfectionist and like to have things done properly, after I discovered data under this link - https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide - I needed to write filters for it, and at this very stage (3rd of February anno domini 2021) - I am still playing around with this filters, and somehow from work which was focused on making pretty graphs this become project with focus on developing well working filters. 
 
-- https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
+Well done me.
+
 - Icons:
 - Cross by Aybige from the Noun Project
 
