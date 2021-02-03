@@ -36,20 +36,13 @@ class App extends Component {
     super(props);
     this.state = {
       selectedFilters: [],
-      selectedCountries: [],
-      selectedMonths: [],
-      selectedYears: [],
-      selectedParameters: [],
       clicked: false,
-      resultsFilter:[],
+      resultsArray: [],
     };
     this.getCountries = this.getCountries.bind(this);
     this.submit = this.submit.bind(this);
-    this.addSelectedParameters = this.addSelectedParameters.bind(this);
-    this.addSelectedCountries = this.addSelectedCountries.bind(this);
-    this.addSelectedMonths = this.addSelectedMonths.bind(this);
-    this.addSelectedYears = this.addSelectedYears.bind(this);
     this.getResults = this.getResults.bind(this);
+    this.addFiltersIntoAnArray = this.addFiltersIntoAnArray.bind(this);
   }
   getCountries() {
     let results = [];
@@ -69,49 +62,15 @@ class App extends Component {
   //date format is always DD/MM/YYYY
   changeIntoMonth = (str) => str.substring(3, 5);
 
-  addSelectedParameters(value) {
-    let parameters = [];
-    if (!parameters.includes(value)) {
-      parameters.push(value);
-    }
-    this.setState({
-      selectedParameters: parameters,
-    });
-  }
-  addSelectedCountries(value) {
-    let countries = [];
-    if (!countries.includes(value)) {
-      countries.push(value);
-    }
-    this.setState({
-      selectedCountries: countries,
-    });
-  }
-  addSelectedMonths(value) {
-    let months = [];
-    if (!months.includes(value)) {
-      months.push(value);
-    }
-    this.setState({
-      selectedMonths: months,
-    });
-  }
-  addSelectedYears(value) {
-    let years = [];
-    if (!years.includes(value)) {
-      years.push(value);
-    }
-    this.setState({
-      selectedYears: years,
-    });
-  }
   addFiltersIntoAnArray(value) {
-    let selectedFilters = [];
-    if (!selectedFilters.includes(value)) {
-      selectedFilters.push([...value]);
-    }
-    return selectedFilters;
-  }
+    const isSelected = this.state.selectedFilters.includes(value);
+    const newSelection = isSelected
+    ? this.state.selectedFilters.filter(currentValue => currentValue !== value)
+    : [...this.state.selectedFilters, value];
+    this.setState({
+      selectedFilters: newSelection,
+    });
+  };
 
   getResults = (filtersObject) => {
     const results = euStaticData.records.filter(
@@ -119,12 +78,7 @@ class App extends Component {
         data.countriesAndTerritories === filtersObject[1].value &&
         this.changeIntoMonth(data.dateRep) === filtersObject[2].value
     );
-    this.setState({
-      resultsFilter: results,
-    });
-    console.log('country', filtersObject[1].value);
-    console.log('month', filtersObject[2].value);
-    console.log(results);
+    return results;
   };
 
   submit = (array) => {
@@ -143,24 +97,10 @@ class App extends Component {
   }
 
   render() {
-    const {
-      selectedParameters,
-      selectedCountries,
-      selectedMonths,
-      selectedYears,
-      resultsFilter
-    } = this.state;
-    console.log(resultsFilter);
-    const selectedFiltersArray = [
-      ...selectedParameters.concat(
-        selectedCountries,
-        selectedMonths,
-        selectedYears
-      ),
-    ];
-
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
+    const { selectedFilters } = this.state;
+
     return (
       <div>
         <Header />
@@ -172,7 +112,7 @@ class App extends Component {
             components={animatedComponents}
             isMulti
             options={parameters}
-            onChange={this.addSelectedParameters}
+            onChange={this.addFiltersIntoAnArray}
           />
           {/* country */}
           <Select
@@ -180,7 +120,7 @@ class App extends Component {
             components={animatedComponents}
             isMulti
             options={countries}
-            onChange={this.addSelectedCountries}
+            onChange={this.addFiltersIntoAnArray}
           />
           {/* month */}
           <Select
@@ -188,7 +128,7 @@ class App extends Component {
             components={animatedComponents}
             isMulti
             options={months}
-            onChange={this.addSelectedMonths}
+            onChange={this.addFiltersIntoAnArray}
           />
           {/* year */}
           <Select
@@ -196,11 +136,11 @@ class App extends Component {
             components={animatedComponents}
             isMulti
             options={years}
-            onChange={this.addSelectedYears}
+            onChange={this.addFiltersIntoAnArray}
           />
           <button
             className="main_page_btn"
-            onClick={() => this.submit(selectedFiltersArray)}
+            onClick={()=>console.log('',selectedFilters)}
           >
             Search
           </button>
@@ -211,16 +151,13 @@ class App extends Component {
           )}
         </div>
         <div className="container">
-          {resultsFilter.length > 0 && this.state.clicked === true ? (
-            <Barchart 
-              label="Test label"
-              labels={resultsFilter}
-            />
+          {/* {selectedFiltersArray.length > 0 && this.state.clicked === true ? (
+            <Barchart />
           ) : (
             <h2 className="info_titles">
               Pick filters and click submit to see charts
             </h2>
-          )}
+          )} */}
         </div>
       </div>
     );
