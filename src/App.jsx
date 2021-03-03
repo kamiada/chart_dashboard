@@ -44,7 +44,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFilters: [],
+      selectedFilters: [
+        {
+          parameters: [],
+          country: [],
+          month: [],
+          year: [],
+        },
+      ],
       clicked: false,
     };
     this.getCountries = this.getCountries.bind(this);
@@ -71,6 +78,9 @@ class App extends Component {
   changeIntoMonth = (str) => str.substring(3, 5);
 
   addFiltersIntoAnArray(value) {
+    console.log('value type', value);
+    //the output is [{type: 'blabla', label:'blabla', value: 'cases_weekly' }] - so I only care about value
+    //map array to object?
     const unique_value = removeDuplicates(value.flat());
     const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
 
