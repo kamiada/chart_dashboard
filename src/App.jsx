@@ -67,16 +67,16 @@ class App extends Component {
     const unique_value = removeDuplicates(value.flat());
   
     const testArray = unique_value.forEach(element => {
-      console.log('what is element', element, element.type);
-      console.log('keys', Object.keys(this.state.objectFilters));
-      console.log('is it true?', element.type === Object.keys(this.state.objectFilters));
-      if(element.type === Object.keys(this.state.objectFilters)){
-        console.log('works!');
-        //if yes - push value of the element to the right array
-        //check if there are no duplicate
-        //request data
+      for (const identifier of Object.keys(this.state.objectFilters)) {
+        if(element.type === identifier){
+          console.log('works!');
+
+          //if yes - push value of the element to the right array
+          //check if there are no duplicate
+          //request data
+        }
+        console.log('nope');
       }
-      console.log('not here');
     });
 
     const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in

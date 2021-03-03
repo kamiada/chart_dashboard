@@ -17,7 +17,7 @@ export const months = [
     { type: "year", label: "2021", value: 2021 },
   ];
   export const parameters = [
-    { type: "parameter", label: "Number of cases", value: "cases_weekly" },
-    { type: "parameter", label: "Number of deaths", value: "deaths_weekly" },
+    { type: "parameters", label: "Number of cases", value: "cases_weekly" },
+    { type: "parameters", label: "Number of deaths", value: "deaths_weekly" },
   ];
 
