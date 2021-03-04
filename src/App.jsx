@@ -55,7 +55,7 @@ class App extends Component {
 
   addFiltersIntoAnArray(value) {
     const unique_value = removeDuplicates(value.flat());
-
+  
     const newSelection = unique_value.forEach((element) => {
       if (element.type === "parameters") {
         if (!this.state.selectedFilters.parameters.includes(element.value)) {
@@ -78,26 +78,18 @@ class App extends Component {
         }
       }
     });
-
-    // const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
-
-    // const newSelection = isSelected
-    //   ? this.state.selectedFilters.filter(
-    //       (currentValue) => currentValue !== unique_value
-    //     )
-    //   : [...this.state.selectedFilters, unique_value];
-    // this.setState({
-    //   selectedFilters: newSelection,
-    // });
   }
 
   getResults = (filtersObject) => {
-    // const results = euStaticData.records.filter(
-    //   (data) =>
-    //     data.countriesAndTerritories === filtersObject[1].value &&
-    //     this.changeIntoMonth(data.dateRep) === filtersObject[2].value
-    // );
-    // return results;
+    const results = euStaticData.records.filter (
+      (data) => 
+        data.countriesAndTerritories === filtersObject.country[0] &&
+        this.changeIntoMonth(data.dateRep) === filtersObject.month[0]
+    )
+    console.log(filtersObject,'filtersObject');
+    console.log('check', filtersObject.country);
+    console.log(results, 'result');
+    return results;
   };
 
   submit = (filters) => {
