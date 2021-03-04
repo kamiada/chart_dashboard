@@ -22,15 +22,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedFilters: [
-        {
-          parameters: [],
-          country: [],
-          month: [],
-          year: [],
-        },
-      ],
-      objectFilters: {
+      selectedFilters: {
         parameters: [],
         country: [],
         month: [],
@@ -66,26 +58,26 @@ class App extends Component {
 
     const newSelection = unique_value.forEach((element) => {
       if (element.type === "parameters") {
-        if (!this.state.objectFilters.parameters.includes(element.value)) {
-          this.state.objectFilters.parameters.push(element.value);
+        if (!this.state.selectedFilters.parameters.includes(element.value)) {
+          this.state.selectedFilters.parameters.push(element.value);
         }
       }
       if (element.type === "country") {
-        if (!this.state.objectFilters.country.includes(element.value)) {
-          this.state.objectFilters.country.push(element.value);
+        if (!this.state.selectedFilters.country.includes(element.value)) {
+          this.state.selectedFilters.country.push(element.value);
         }
       }
       if (element.type === "month") {
-        if (!this.state.objectFilters.month.includes(element.value)) {
-          this.state.objectFilters.month.push(element.value);
+        if (!this.state.selectedFilters.month.includes(element.value)) {
+          this.state.selectedFilters.month.push(element.value);
         }
       }
       if (element.type === "year") {
-        if (!this.state.objectFilters.year.includes(element.value)) {
-          this.state.objectFilters.year.push(element.value);
+        if (!this.state.selectedFilters.year.includes(element.value)) {
+          this.state.selectedFilters.year.push(element.value);
         }
       }
-      console.log(this.state.objectFilters);
+      console.log(this.state.selectedFilters);
     });
 
     // const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
@@ -101,17 +93,17 @@ class App extends Component {
   }
 
   getResults = (filtersObject) => {
-    const results = euStaticData.records.filter(
-      (data) =>
-        data.countriesAndTerritories === filtersObject[1].value &&
-        this.changeIntoMonth(data.dateRep) === filtersObject[2].value
-    );
-    return results;
+    // const results = euStaticData.records.filter(
+    //   (data) =>
+    //     data.countriesAndTerritories === filtersObject[1].value &&
+    //     this.changeIntoMonth(data.dateRep) === filtersObject[2].value
+    // );
+    // return results;
   };
 
   submit = (array) => {
     if (array.length > 0) {
-      this.getResults(array.flat());
+      this.getResults();
       this.setState({
         clicked: true,
       });
@@ -168,7 +160,7 @@ class App extends Component {
           />
           <button
             className="main_page_btn"
-            onClick={() => console.log("", selectedFilters)}
+            onClick={() => this.submit(selectedFilters)}
           >
             Search
           </button>
