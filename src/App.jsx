@@ -77,7 +77,6 @@ class App extends Component {
           this.state.selectedFilters.year.push(element.value);
         }
       }
-      console.log(this.state.selectedFilters);
     });
 
     // const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
@@ -101,9 +100,9 @@ class App extends Component {
     // return results;
   };
 
-  submit = (array) => {
-    if (array.length > 0) {
-      this.getResults();
+  submit = (filters) => {
+    if (filters.parameters.length > 0 && filters.country.length > 0 && filters.month.length > 0 && filters.year.length > 0) {
+      this.getResults(filters);
       this.setState({
         clicked: true,
       });
@@ -164,6 +163,7 @@ class App extends Component {
           >
             Search
           </button>
+
           {this.state.clicked === true && (
             <button className="main_page_btn" onClick={() => this.reset()}>
               Reset
