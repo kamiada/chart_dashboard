@@ -66,29 +66,32 @@ class App extends Component {
     //the output is [{type: 'blabla', label:'blabla', value: 'cases_weekly' }] - so I only care about value
     const unique_value = removeDuplicates(value.flat());
   
-    const testArray = unique_value.forEach(element => {
-      for (const identifier of Object.keys(this.state.objectFilters)) {
-        if(element.type === identifier){
-          console.log('works!');
-
-          //if yes - push value of the element to the right array
-          //check if there are no duplicate
-          //request data
-        }
-        console.log('nope');
-      }
+    const newSelection = unique_value.forEach(element => {
+          if(element.type === 'parameters'){
+            this.state.objectFilters.parameters.push(element.value);
+          }
+          if(element.type === 'country'){
+            this.state.objectFilters.country.push(element.value);
+          }
+          if(element.type === 'month'){
+            this.state.objectFilters.month.push(element.value);
+          }
+          if(element.type === 'year'){
+            this.state.objectFilters.year.push(element.value);
+          }
+          console.log(this.state.objectFilters);
     });
 
-    const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
+    // const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
 
-    const newSelection = isSelected
-      ? this.state.selectedFilters.filter(
-          (currentValue) => currentValue !== unique_value
-        )
-      : [...this.state.selectedFilters, unique_value];
-    this.setState({
-      selectedFilters: newSelection,
-    });
+    // const newSelection = isSelected
+    //   ? this.state.selectedFilters.filter(
+    //       (currentValue) => currentValue !== unique_value
+    //     )
+    //   : [...this.state.selectedFilters, unique_value];
+    // this.setState({
+    //   selectedFilters: newSelection,
+    // });
   }
 
   getResults = (filtersObject) => {
@@ -119,7 +122,7 @@ class App extends Component {
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const { selectedFilters } = this.state;
-    console.log(selectedFilters);
+    // console.log(selectedFilters);
     return (
       <div>
         <Header />
