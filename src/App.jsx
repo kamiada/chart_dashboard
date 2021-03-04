@@ -28,7 +28,11 @@ class App extends Component {
         month: [],
         year: [],
       },
-      results: [],
+      results: {
+        number: [],
+        countries: [],
+        dates: []
+      },
       clicked: false,
     };
     this.getCountries = this.getCountries.bind(this);
@@ -54,13 +58,15 @@ class App extends Component {
   //date format is always DD/MM/YYYY
   changeIntoMonth = (str) => str.substring(3, 5);
   changeIntoYear = (str) => str.substring(6, 10);
+  //check duplicates
+  checkDuplicates = (arrayToCheck, valueToCheck) => arrayToCheck.includes(valueToCheck);
 
   addFiltersIntoAnArray(value) {
     const unique_value = removeDuplicates(value.flat());
 
-    const newSelection = unique_value.forEach((element) => {
+    unique_value.forEach((element) => {
       if (element.type === "parameters") {
-        if (!this.state.selectedFilters.parameters.includes(element.value)) {
+        if (!this.checkDuplicates(this.state.selectedFilters.parameters,element.value)) {
           this.state.selectedFilters.parameters.push(element.value);
         }
       }
@@ -86,12 +92,27 @@ class App extends Component {
     const results = euStaticData.records.filter(
       (data) =>
         data.countriesAndTerritories === filtersObject.country[0] &&
-        this.changeIntoMonth(data.dateRep) === filtersObject.month[0] &&
-        this.changeIntoYear(data.dateRep) === filtersObject.year[0]
+        this.changeIntoMonth(data.dateRep) === filtersObject.month[0] 
     );
-    this.setState({
-      results: results,
+    results.forEach ((value) => {
+      if(value.dateRep) {
+        this.state.results.dates.push(value.dateRep);
+      }
+      if(value.countriesAndTerritories) {
+        if(!this.checkDuplicates(this.state.results.countries, value.countriesAndTerritories)){
+          this.state.results.countries.push(value.countriesAndTerritories);
+        }
+      }
+      //doesn't even get here
+      if(filtersObject.parameters === 'cases_weekly') {
+        console.log('here');
+        this.state.results.number.push(value.cases_weekly);
+      }
+      if(filtersObject.parameters === 'deaths_weekly') {
+        this.state.results.number.push(value.deaths_weekly);
+      }
     })
+    console.log(this.state.results, 'state');
   };
 
   submit = (filters) => {
@@ -118,7 +139,6 @@ class App extends Component {
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const { selectedFilters, results } = this.state;
-    // console.log(selectedFilters);
     return (
       <div>
         <Header />
@@ -171,13 +191,13 @@ class App extends Component {
         </div>
         <div className="container">
           {
-            results && results.length > 0 (
+            results && results.length > 0 ? 
               <Barchart 
-              labels = ''
+              labels = {[results.dateRep]}
               label = ''
               data = ''
               />
-            )
+            : 'Please check if you picked all the filters before submitting'
           }
         </div>
       </div>

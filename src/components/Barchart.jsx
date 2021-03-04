@@ -17,7 +17,9 @@ class Barchart extends Component {
             barThickness: 6,
             maxBarThickness: 8,
             minBarLength: 2,
+            //string
             label: this.props.label,
+            //data: [{x:'2016-12-25', y:20}, {x:'2016-12-26', y:10}]
             data: this.props.data,
           },
         ],
