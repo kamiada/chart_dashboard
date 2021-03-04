@@ -28,6 +28,7 @@ class App extends Component {
         month: [],
         year: [],
       },
+      results: [],
       clicked: false,
     };
     this.getCountries = this.getCountries.bind(this);
@@ -52,10 +53,11 @@ class App extends Component {
   }
   //date format is always DD/MM/YYYY
   changeIntoMonth = (str) => str.substring(3, 5);
+  changeIntoYear = (str) => str.substring(6, 10);
 
   addFiltersIntoAnArray(value) {
     const unique_value = removeDuplicates(value.flat());
-  
+
     const newSelection = unique_value.forEach((element) => {
       if (element.type === "parameters") {
         if (!this.state.selectedFilters.parameters.includes(element.value)) {
@@ -81,19 +83,24 @@ class App extends Component {
   }
 
   getResults = (filtersObject) => {
-    const results = euStaticData.records.filter (
-      (data) => 
+    const results = euStaticData.records.filter(
+      (data) =>
         data.countriesAndTerritories === filtersObject.country[0] &&
-        this.changeIntoMonth(data.dateRep) === filtersObject.month[0]
-    )
-    console.log(filtersObject,'filtersObject');
-    console.log('check', filtersObject.country);
-    console.log(results, 'result');
-    return results;
+        this.changeIntoMonth(data.dateRep) === filtersObject.month[0] &&
+        this.changeIntoYear(data.dateRep) === filtersObject.year[0]
+    );
+    this.setState({
+      results: results,
+    })
   };
 
   submit = (filters) => {
-    if (filters.parameters.length > 0 && filters.country.length > 0 && filters.month.length > 0 && filters.year.length > 0) {
+    if (
+      filters.parameters.length > 0 &&
+      filters.country.length > 0 &&
+      filters.month.length > 0 &&
+      filters.year.length > 0
+    ) {
       this.getResults(filters);
       this.setState({
         clicked: true,
@@ -110,7 +117,7 @@ class App extends Component {
   render() {
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
-    const { selectedFilters } = this.state;
+    const { selectedFilters, results } = this.state;
     // console.log(selectedFilters);
     return (
       <div>
@@ -162,7 +169,17 @@ class App extends Component {
             </button>
           )}
         </div>
-        <div className="container"></div>
+        <div className="container">
+          {
+            results && results.length > 0 (
+              <Barchart 
+              labels = ''
+              label = ''
+              data = ''
+              />
+            )
+          }
+        </div>
       </div>
     );
   }
