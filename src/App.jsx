@@ -6,8 +6,7 @@ import "./components/components.scss";
 import euStaticData from "./EUcovidData.json";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
-import {months, years, parameters} from './constants';
-
+import { months, years, parameters } from "./constants";
 
 const removeDuplicates = (array) => {
   let sorted_arr = array.slice().sort();
@@ -65,21 +64,29 @@ class App extends Component {
   addFiltersIntoAnArray(value) {
     //the output is [{type: 'blabla', label:'blabla', value: 'cases_weekly' }] - so I only care about value
     const unique_value = removeDuplicates(value.flat());
-  
-    const newSelection = unique_value.forEach(element => {
-          if(element.type === 'parameters'){
-            this.state.objectFilters.parameters.push(element.value);
-          }
-          if(element.type === 'country'){
-            this.state.objectFilters.country.push(element.value);
-          }
-          if(element.type === 'month'){
-            this.state.objectFilters.month.push(element.value);
-          }
-          if(element.type === 'year'){
-            this.state.objectFilters.year.push(element.value);
-          }
-          console.log(this.state.objectFilters);
+
+    const newSelection = unique_value.forEach((element) => {
+      if (element.type === "parameters") {
+        if (!this.state.objectFilters.parameters.includes(element.value)) {
+          this.state.objectFilters.parameters.push(element.value);
+        }
+      }
+      if (element.type === "country") {
+        if (!this.state.objectFilters.country.includes(element.value)) {
+          this.state.objectFilters.country.push(element.value);
+        }
+      }
+      if (element.type === "month") {
+        if (!this.state.objectFilters.month.includes(element.value)) {
+          this.state.objectFilters.month.push(element.value);
+        }
+      }
+      if (element.type === "year") {
+        if (!this.state.objectFilters.year.includes(element.value)) {
+          this.state.objectFilters.year.push(element.value);
+        }
+      }
+      console.log(this.state.objectFilters);
     });
 
     // const isSelected = this.state.selectedFilters.includes(unique_value); //gives back true or false, checks if state holds the value in
