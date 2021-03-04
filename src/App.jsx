@@ -62,7 +62,6 @@ class App extends Component {
   changeIntoMonth = (str) => str.substring(3, 5);
 
   addFiltersIntoAnArray(value) {
-    //the output is [{type: 'blabla', label:'blabla', value: 'cases_weekly' }] - so I only care about value
     const unique_value = removeDuplicates(value.flat());
 
     const newSelection = unique_value.forEach((element) => {
