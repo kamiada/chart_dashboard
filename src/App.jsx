@@ -115,7 +115,9 @@ class App extends Component {
         }
       }
       //doesn't even get here
-      if (filtersObject.parameters === "cases_weekly") {
+      console.log('filters parameters', filtersObject.parameters);
+      console.log(filtersObject.parameters[0] === "cases_weekly");
+      if (filtersObject.parameters[0] === "cases_weekly") {
         console.log("here");
         this.state.results.number.push(value.cases_weekly);
       }
@@ -202,8 +204,8 @@ class App extends Component {
         </div>
         <div className="container">
           {clicked === true ? (
-            results && results.length > 0 ? (
-              <Barchart labels={[results.dateRep]} label={results.countries} data={results.number} />
+            results ? (
+              <Barchart labels={results.dateRep} label={results.countries} data={results.number} />
             ) : (
               "Please check if you picked all the filters before submitting"
             )
