@@ -116,10 +116,12 @@ class App extends Component {
       }
       //doesn't even get here
       if (filtersObject.parameters[0] === "cases_weekly") {
-        this.state.results.number.push(value.cases_weekly);
+        if(!this.checkDuplicates(this.state.results.number, value.cases_weekly)){
+        this.state.results.number.push(value.cases_weekly);}
       }
       if (filtersObject.parameters[0] === "deaths_weekly") {
-        this.state.results.number.push(value.deaths_weekly);
+        if(!this.checkDuplicates(this.state.results.number, value.deaths_weekly)){
+        this.state.results.number.push(value.deaths_weekly);}
       }
     });
     console.log(this.state.results.number)
@@ -142,6 +144,17 @@ class App extends Component {
 
   reset() {
     this.setState({
+      selectedFilters: {
+        parameters: [],
+        country: [],
+        month: [],
+        year: [],
+      },
+      results: {
+        number: [],
+        countries: [],
+        dates: [],
+      },
       clicked: false,
     });
   }
