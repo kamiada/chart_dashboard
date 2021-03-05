@@ -29,6 +29,7 @@ class App extends Component {
         year: [],
       },
       results: {
+        type:[],
         number: [],
         countries: [],
         dates: [],
@@ -77,17 +78,26 @@ class App extends Component {
         }
       }
       if (element.type === "country") {
-        if (!this.state.selectedFilters.country.includes(element.value)) {
+        if (
+          !this.checkDuplicates(
+            this.state.selectedFilters.country,
+            element.value
+          )
+        ) {
           this.state.selectedFilters.country.push(element.value);
         }
       }
       if (element.type === "month") {
-        if (!this.state.selectedFilters.month.includes(element.value)) {
+        if (
+          !this.checkDuplicates(this.state.selectedFilters.month, element.value)
+        ) {
           this.state.selectedFilters.month.push(element.value);
         }
       }
       if (element.type === "year") {
-        if (!this.state.selectedFilters.year.includes(element.value)) {
+        if (
+          !this.checkDuplicates(this.state.selectedFilters.year, element.value)
+        ) {
           this.state.selectedFilters.year.push(element.value);
         }
       }
@@ -114,17 +124,28 @@ class App extends Component {
           this.state.results.countries.push(value.countriesAndTerritories);
         }
       }
-      //doesn't even get here
-      if (filtersObject.parameters[0] === "cases_weekly") {
-        if(!this.checkDuplicates(this.state.results.number, value.cases_weekly)){
-        this.state.results.number.push(value.cases_weekly);}
+      //TAKES IN SINGLE VALUE
+      if (this.checkDuplicates(filtersObject.parameters, "cases_weekly")) {
+        this.state.results.number.push(value.cases_weekly);
+        if(!this.checkDuplicates(this.state.results.type, "Number of Cases Weekly")){
+          this.state.results.type.push("Number of Cases Weekly");
+        }
       }
-      if (filtersObject.parameters[0] === "deaths_weekly") {
-        if(!this.checkDuplicates(this.state.results.number, value.deaths_weekly)){
-        this.state.results.number.push(value.deaths_weekly);}
+      if (this.checkDuplicates(filtersObject.parameters, "deaths_weekly")) {
+        this.state.results.number.push(value.deaths_weekly);
+        if(!this.checkDuplicates(this.state.results.type, "Number of Deaths Weekly")){
+          this.state.results.type.push("Number of Deaths Weekly");
+        }
+      }
+      if(this.checkDuplicates(filtersObject.parameters, "cases_weekly") && this.checkDuplicates(filtersObject.parameters, "deaths_weekly")){
+        this.state.results.number.push(value.cases_weekly);
+        this.state.results.number.push(value.deaths_weekly);
+        if(!this.checkDuplicates(this.state.results.type, "Number of Deaths Weekly") && !this.checkDuplicates(this.state.results.type, "Number of Cases Weekly")){
+          this.state.results.type.push("Number of Deaths and Cases Weekly");
+        }
       }
     });
-    console.log(this.state.results.number)
+    console.log(this.state.results.number);
     console.log(this.state.results, "state");
   };
 
@@ -151,6 +172,7 @@ class App extends Component {
         year: [],
       },
       results: {
+        type: [],
         number: [],
         countries: [],
         dates: [],
@@ -217,7 +239,11 @@ class App extends Component {
         <div className="container">
           {clicked === true ? (
             results ? (
-              <Barchart labels={results.dates} label={results.countries} data={results.number} />
+              <Barchart
+                labels={results.dates}
+                label={`${results.countries}, ${results.type}`}
+                data={results.number}
+              />
             ) : (
               "Please check if you picked all the filters before submitting"
             )
