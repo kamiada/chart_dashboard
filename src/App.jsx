@@ -62,6 +62,11 @@ class App extends Component {
   //check duplicates
   checkDuplicates = (arrayToCheck, valueToCheck) =>
     arrayToCheck.includes(valueToCheck);
+  //sum the numbers in array
+  sumTheArray = (array) =>
+    array.reduce(function (a, b) {
+      return a + b;
+    }, 0);
 
   addFiltersIntoAnArray(value) {
     const unique_value = removeDuplicates(value.flat());
@@ -106,8 +111,8 @@ class App extends Component {
   getResults = (filtersObject) => {
     const results = euStaticData.records.filter(
       (data) =>
-      filtersObject.country.includes(data.countriesAndTerritories) &&
-      filtersObject.month.includes(this.changeIntoMonth(data.dateRep))
+        filtersObject.country.includes(data.countriesAndTerritories) &&
+        filtersObject.month.includes(this.changeIntoMonth(data.dateRep))
     );
     results.forEach((value) => {
       if (value.dateRep) {
@@ -260,15 +265,13 @@ class App extends Component {
           {clicked === true ? (
             results ? (
               <Fragment>
-              <Barchart
-                labels={results.dates}
-                label={`${results.countries}, ${results.type}`}
-                data={results.number}
-              />
-              <Doughnut 
-
-              />
-              <BubbleChart />
+                <Barchart
+                  labels={results.dates}
+                  label={`${results.countries}, ${results.type}`}
+                  data={results.number}
+                />
+                <Doughnut labels={results.countries} data={this.sumTheArray(results.number)} />
+                <BubbleChart />
               </Fragment>
             ) : (
               "Please check if you picked all the filters before submitting"
