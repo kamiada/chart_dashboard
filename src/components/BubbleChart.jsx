@@ -39,7 +39,7 @@ class BubbleChart extends Component {
         const myChartRef = this.chartRef.current.getContext("2d");
         new Chart(myChartRef, {
             type: "bubble",
-            data: popData
+            data: this.props.bubbleData
         });
     }
     render(){

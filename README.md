@@ -6,16 +6,29 @@ In the project directory, you can run:
 
 ### `npm start`
 
+## about the project.
 This project was build with React.JS and Chart.JS in order to practice.
+In order to do so and to build something both interesting and meaningful I downloaded the covid-19 data from this website: 
+ https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide
+Next I decided to focus on building the filters which could allow potential users to for example: compare the amount of weekly cases in different months between different countries. 
+
+At this point, I am still working on filters: so far user is able to see the data in one country, during one month and in form of a barchart. 
+
+The next steps are: 
+- working on filters so user is able to filter data not per one country but as many as they please
+- finding a way to feed the data to bubble chart and doughnut
+- making visualisation in barchat more easy to read
+- updating 'about' mini page
+
+So far the dashboard look like this: 
+
+![dashboard](forReadme/screenshot1.png)
+
+
 I found this articles quite useful for learning about how Chart.JS works with React -
 https://blog.bitsrc.io/customizing-chart-js-in-react-2199fa81530a
 https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react
 
-BUT! 
-
-Due to the fact that I am perfectionist and like to have things done properly, after I discovered data under this link - https://www.ecdc.europa.eu/en/publications-data/download-todays-data-geographic-distribution-covid-19-cases-worldwide - I needed to write filters for it, and at this very stage (3rd of February anno domini 2021) - I am still playing around with this filters, and somehow from work which was focused on making pretty graphs this become project with focus on developing well working filters. 
-
-Well done me.
 
 - Icons:
 - Cross by Aybige from the Noun Project

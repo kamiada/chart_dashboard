@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Header from "./components/Header";
-import Barchart from "./components/Barchart";
+import { Barchart, Doughnut, BubbleChart } from "./components";
 import Subpage from "./components/Subpage";
 import "./components/components.scss";
 import euStaticData from "./EUcovidData.json";
@@ -29,7 +29,7 @@ class App extends Component {
         year: [],
       },
       results: {
-        type:[],
+        type: [],
         number: [],
         countries: [],
         dates: [],
@@ -124,23 +124,44 @@ class App extends Component {
           this.state.results.countries.push(value.countriesAndTerritories);
         }
       }
-      //TAKES IN SINGLE VALUE
       if (this.checkDuplicates(filtersObject.parameters, "cases_weekly")) {
         this.state.results.number.push(value.cases_weekly);
-        if(!this.checkDuplicates(this.state.results.type, "Number of Cases Weekly")){
+        if (
+          !this.checkDuplicates(
+            this.state.results.type,
+            "Number of Cases Weekly"
+          )
+        ) {
           this.state.results.type.push("Number of Cases Weekly");
         }
       }
       if (this.checkDuplicates(filtersObject.parameters, "deaths_weekly")) {
         this.state.results.number.push(value.deaths_weekly);
-        if(!this.checkDuplicates(this.state.results.type, "Number of Deaths Weekly")){
+        if (
+          !this.checkDuplicates(
+            this.state.results.type,
+            "Number of Deaths Weekly"
+          )
+        ) {
           this.state.results.type.push("Number of Deaths Weekly");
         }
       }
-      if(this.checkDuplicates(filtersObject.parameters, "cases_weekly") && this.checkDuplicates(filtersObject.parameters, "deaths_weekly")){
+      if (
+        this.checkDuplicates(filtersObject.parameters, "cases_weekly") &&
+        this.checkDuplicates(filtersObject.parameters, "deaths_weekly")
+      ) {
         this.state.results.number.push(value.cases_weekly);
         this.state.results.number.push(value.deaths_weekly);
-        if(!this.checkDuplicates(this.state.results.type, "Number of Deaths Weekly") && !this.checkDuplicates(this.state.results.type, "Number of Cases Weekly")){
+        if (
+          !this.checkDuplicates(
+            this.state.results.type,
+            "Number of Deaths Weekly"
+          ) &&
+          !this.checkDuplicates(
+            this.state.results.type,
+            "Number of Cases Weekly"
+          )
+        ) {
           this.state.results.type.push("Number of Deaths and Cases Weekly");
         }
       }
@@ -239,11 +260,17 @@ class App extends Component {
         <div className="container">
           {clicked === true ? (
             results ? (
+              <Fragment>
               <Barchart
                 labels={results.dates}
                 label={`${results.countries}, ${results.type}`}
                 data={results.number}
               />
+              <Doughnut 
+
+              />
+              <BubbleChart />
+              </Fragment>
             ) : (
               "Please check if you picked all the filters before submitting"
             )
