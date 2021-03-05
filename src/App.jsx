@@ -65,7 +65,6 @@ class App extends Component {
 
   addFiltersIntoAnArray(value) {
     const unique_value = removeDuplicates(value.flat());
-
     unique_value.forEach((element) => {
       if (element.type === "parameters") {
         if (
@@ -107,8 +106,8 @@ class App extends Component {
   getResults = (filtersObject) => {
     const results = euStaticData.records.filter(
       (data) =>
-        data.countriesAndTerritories === filtersObject.country[0] &&
-        this.changeIntoMonth(data.dateRep) === filtersObject.month[0]
+      filtersObject.country.includes(data.countriesAndTerritories) &&
+      filtersObject.month.includes(this.changeIntoMonth(data.dateRep))
     );
     results.forEach((value) => {
       if (value.dateRep) {
