@@ -122,6 +122,7 @@ class App extends Component {
         this.state.results.number.push(value.deaths_weekly);
       }
     });
+    console.log(this.state.results.number)
     console.log(this.state.results, "state");
   };
 
@@ -203,7 +204,7 @@ class App extends Component {
         <div className="container">
           {clicked === true ? (
             results ? (
-              <Barchart labels={[results.dateRep]} label={results.countries} data={[results.number]} />
+              <Barchart labels={results.dates} label={results.countries} data={results.number} />
             ) : (
               "Please check if you picked all the filters before submitting"
             )
