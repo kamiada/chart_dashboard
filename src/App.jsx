@@ -115,13 +115,10 @@ class App extends Component {
         }
       }
       //doesn't even get here
-      console.log('filters parameters', filtersObject.parameters);
-      console.log(filtersObject.parameters[0] === "cases_weekly");
       if (filtersObject.parameters[0] === "cases_weekly") {
-        console.log("here");
         this.state.results.number.push(value.cases_weekly);
       }
-      if (filtersObject.parameters === "deaths_weekly") {
+      if (filtersObject.parameters[0] === "deaths_weekly") {
         this.state.results.number.push(value.deaths_weekly);
       }
     });
@@ -202,10 +199,11 @@ class App extends Component {
             </button>
           )}
         </div>
+        {/*<Barchart labels={['test', 'test']} label={results.countries} data={[123, 45, 89]} /> */}
         <div className="container">
           {clicked === true ? (
             results ? (
-              <Barchart labels={results.dateRep} label={results.countries} data={results.number} />
+              <Barchart labels={[results.dateRep]} label={results.countries} data={[results.number]} />
             ) : (
               "Please check if you picked all the filters before submitting"
             )
