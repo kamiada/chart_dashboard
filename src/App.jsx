@@ -109,11 +109,19 @@ class App extends Component {
   }
 
   getResults = (filtersObject) => {
+    //get results will need to look differently-
+    //get the data per country and keep assigned to per country
+    //then get the data per another country
+    //in other words I will need an array of objects?...
+
+
     const results = euStaticData.records.filter(
       (data) =>
         filtersObject.country.includes(data.countriesAndTerritories) &&
         filtersObject.month.includes(this.changeIntoMonth(data.dateRep))
     );
+    //at this point results are an array of objects
+    console.log('search1', results);
     results.forEach((value) => {
       if (value.dateRep) {
         this.state.results.dates.push(value.dateRep);
@@ -210,6 +218,7 @@ class App extends Component {
     const countries = this.getCountries();
     const animatedComponents = makeAnimated();
     const { selectedFilters, results, clicked } = this.state;
+    console.log(this.sumTheArray(results.number));
     return (
       <div>
         <Header />
