@@ -28,6 +28,7 @@ So far the dashboard look like this:
 I found this articles quite useful for learning about how Chart.JS works with React -
 https://blog.bitsrc.io/customizing-chart-js-in-react-2199fa81530a
 https://www.educative.io/edpresso/how-to-use-chartjs-to-create-charts-in-react
+https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#1-bar-chart
 
 
 - Icons:
