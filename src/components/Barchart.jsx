@@ -6,7 +6,7 @@ class Barchart extends Component {
   chartRef = React.createRef();
 
   componentDidMount() {
-    const myChartRef = this.chartRef.current.getContext("2d"); 
+    const myChartRef = this.chartRef.current.getContext("2d");
     new Chart(myChartRef, {
       type: "bar",
       data: {
@@ -21,6 +21,10 @@ class Barchart extends Component {
             label: this.props.label,
             //data: [{x:'2016-12-25', y:20}, {x:'2016-12-26', y:10}]
             data: this.props.data,
+            backgroundColor: [
+              "#3e95cd",
+              "#8e5ea2"
+            ],
           },
         ],
       },

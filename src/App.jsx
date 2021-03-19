@@ -219,6 +219,8 @@ class App extends Component {
     const animatedComponents = makeAnimated();
     const { selectedFilters, results, clicked } = this.state;
     console.log(this.sumTheArray(results.number));
+    console.log(results.countries);
+    console.log(results.number);
     return (
       <div>
         <Header />
@@ -269,21 +271,27 @@ class App extends Component {
             </button>
           )}
         </div>
-        {/*<Barchart labels={['test', 'test']} label={results.countries} data={[123, 45, 89]} /> */}
         <div className="container">
           {clicked === true ? (
-            results ? (
+            results && results.countries.length <= 1 ? (
               <Fragment>
                 <Barchart
                   labels={results.dates}
-                  label={`${results.countries}, ${results.type}`}
+                  label={`${results.type} in ${results.countries}`}
                   data={results.number}
                 />
-                <Doughnut labels={results.countries} data={this.sumTheArray(results.number)} />
-                <BubbleChart />
               </Fragment>
             ) : (
-              "Please check if you picked all the filters before submitting"
+              Object.entries(results).map(value =>
+                <Fragment>
+                <Barchart
+                  labels={value.dates}
+                  label={`${value.type} in ${value.countries}`}
+                  data={value.number}
+                />
+              </Fragment>
+              
+              )
             )
           ) : (
             ""
