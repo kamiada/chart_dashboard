@@ -11,23 +11,25 @@ class Barchart extends Component {
       type: "bar",
       data: {
         labels: this.props.labels,
-        datasets: [
-          {
-            barPercentage: 0.5,
-            barThickness: 6,
-            maxBarThickness: 8,
-            minBarLength: 2,
-            //string
-            label: this.props.label,
-            //data: [{x:'2016-12-25', y:20}, {x:'2016-12-26', y:10}]
-            data: this.props.data,
-            backgroundColor: [
-              "#3e95cd",
-              "#8e5ea2"
-            ],
-          },
-        ],
-      },
+        datasets: this.props.inputData.length ? this.props.inputData.map(value => 
+          [
+            {
+              barPercentage: 0.5,
+              barThickness: 6,
+              maxBarThickness: 8,
+              minBarLength: 2,
+              //string
+              label: value.label,
+              //data: [{x:'2016-12-25', y:20}, {x:'2016-12-26', y:10}]
+              data: value.data,
+              backgroundColor: [
+                "#3e95cd",
+                "#8e5ea2"
+              ],
+            },
+          ]
+        )
+      : ''},
       options: {
         scales: {
           xAxes: [

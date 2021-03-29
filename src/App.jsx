@@ -114,14 +114,13 @@ class App extends Component {
     //then get the data per another country
     //in other words I will need an array of objects?...
 
-
     const results = euStaticData.records.filter(
       (data) =>
         filtersObject.country.includes(data.countriesAndTerritories) &&
         filtersObject.month.includes(this.changeIntoMonth(data.dateRep))
     );
     //at this point results are an array of objects
-    console.log('search1', results);
+    console.log("search1", results);
     results.forEach((value) => {
       if (value.dateRep) {
         this.state.results.dates.push(value.dateRep);
@@ -272,29 +271,10 @@ class App extends Component {
           )}
         </div>
         <div className="container">
-          {clicked === true ? (
-            results && results.countries.length <= 1 ? (
-              <Fragment>
-                <Barchart
-                  labels={results.dates}
-                  label={`${results.type} in ${results.countries}`}
-                  data={results.number}
-                />
-              </Fragment>
-            ) : (
-              Object.entries(results).map(value =>
-                <Fragment>
-                <Barchart
-                  labels={value.dates}
-                  label={`${value.type} in ${value.countries}`}
-                  data={value.number}
-                />
-              </Fragment>
-              
-              )
-            )
-          ) : (
-            ""
+          {clicked === true && results && results.countries.length <= 1 && (
+            <Fragment>
+              <Barchart labels="test" inputData={results} />
+            </Fragment>
           )}
         </div>
       </div>
